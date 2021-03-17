@@ -1,0 +1,7 @@
+---
+- hosts: clients
+  tasks:
+
+  - name: Install and configure Bacula File Daemon
+    import_role:
+      name: bacula.bacula_community.bce_fdonly

@@ -1,0 +1,11 @@
+---
+storages:
+  hosts:
+    storage1.domain.com
+      storage_hostname: storage1.domain.com
+    storage2.domain.com
+      storage_hostname: storage2.domain.com
+  vars:
+    director_hostname: baculadir.domain.com
+    bce_version: 11.0.1
+    volumes_directory: /opt/bacula/volumes

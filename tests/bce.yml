@@ -1,0 +1,7 @@
+---
+- hosts: directors
+  remote_user: root
+  tasks:
+  - name: Install Bacula Community - PostgreSQL Catalog
+    import_role:
+      name: bacula.bacula_community.bce

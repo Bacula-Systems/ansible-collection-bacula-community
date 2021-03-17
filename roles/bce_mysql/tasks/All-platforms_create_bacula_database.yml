@@ -1,0 +1,23 @@
+- name: get the temporary root password
+  shell: "grep password /var/log/mysqld.log | awk '{ print $NF }'"
+  register: root_password
+- name: create Bacula catalog database
+  shell: "MYSQL_PWD=\"{{ root_password.stdout }}\" /opt/bacula/scripts/create_mysql_database -u root"
+  register: database_result
+  failed_when: database_result.stdout != 'Creation of bacula database succeeded.'
+- debug: msg="{{ database_result.stdout }}"
+- name: make Bacula catalog tables
+  shell: "MYSQL_PWD=\"{{ root_password.stdout }}\" /opt/bacula/scripts/make_mysql_tables -u root"
+  register: tables_result
+  failed_when: tables_result.stdout != 'Creation of Bacula MySQL tables succeeded.'
+- debug: msg="{{ tables_result.stdout }}"
+- name: set the bacula Catalog password to the MySQL rooot password in the grant_mysql_privileges script
+  replace:
+    path: /opt/bacula/scripts/grant_mysql_privileges
+    regexp: "^db_password="
+    replace: "db_password=\"{{ root_password.stdout }}\""
+- name: grant Bacula catalog privileges
+  shell: "MYSQL_PWD=\"{{ root_password.stdout }}\" /opt/bacula/scripts/grant_mysql_privileges -u root"
+  register: privileges_result
+  failed_when: '"Privileges for user bacula granted on database bacula." not in privileges_result.stdout'
+- debug: msg="{{ privileges_result }}"

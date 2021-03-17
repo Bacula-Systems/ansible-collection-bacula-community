@@ -1,0 +1,42 @@
+- name: start bacula-dir service (for Debian/Ubuntu, daemons must start automatically after installation)
+  service:
+    name: bacula-dir
+    state: started
+  register: dir_started
+- debug: msg="Director hadn't started automatically! In Debian and Ubuntu systems Bacula daemons should start automatically! Fixed in 12.3.11"
+  when: dir_started.changed == true
+- debug: msg="Director started automatically as expected."
+  when: dir_started.changed == false
+- name: bacula-dir service status
+  shell: "systemctl status bacula-dir"
+  register: bacula_dir_status
+- debug: msg="{{ bacula_dir_status.stdout.split('\n') }}"
+- debug: msg="{{ bacula_dir_status.stderr.split('\n') }}"
+- name: start bacula-fd service (for Debian/Ubuntu, daemons must start automatically after installation)
+  service:
+    name: bacula-fd
+    state: started
+  register: fd_started
+- debug: msg="File Daemon hadn't started automatically! In Debian and Ubuntu systems Bacula daemons should start automatically! Fixed in 12.3.11"
+  when: fd_started.changed == true
+- debug: msg="File Daemon started automatically as expected."
+  when: fd_started.changed == false
+- name: bacula-fd service status
+  shell: "systemctl status bacula-fd"
+  register: bacula_fd_status
+- debug: msg="{{ bacula_fd_status.stdout.split('\n') }}"
+- debug: msg="{{ bacula_fd_status.stderr.split('\n') }}"
+- name: start bacula-sd service (for Debian/Ubuntu,  daemons must start automatically after installation)
+  service:
+    name: bacula-sd
+    state: started
+  register: sd_started
+- debug: msg="Storage Daemon hadn't started automatically! In Debian and Ubuntu systems Bacula daemons should start automatically! Fixed in 12.3.11"
+  when: sd_started.changed == true
+- debug: msg="Storage Daemon started automatically as expected."
+  when: sd_started.changed == false
+- name: bacula-sd service status
+  shell: "systemctl status bacula-sd"
+  register: bacula_sd_status
+- debug: msg="{{ bacula_sd_status.stdout.split('\n') }}"
+- debug: msg="{{ bacula_sd_status.stderr.split('\n') }}"

@@ -1,0 +1,25 @@
+---
+keys:
+  - packages: bce
+    packages_signatures:
+      - Bacula-4096-Distribution-Verification-key.asc
+
+# This is the dictionary to add any additional package that
+# need to be installed before BCE is installed
+# The following entries are an example of the structure and
+# they cannot be removed. They can be modified though.
+# Valid operator values are: eq, le, lt, ge, gt
+
+bce_additional_packages:
+  - os_distribution: Debian
+    package_name:
+      - apt-transport-https
+      - sudo
+      - openssl
+      - ca-certificates
+      - gnupg
+
+  - os_distribution: Ubuntu
+    package_name:
+      - apt-transport-https
+      - sudo

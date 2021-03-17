@@ -1,0 +1,15 @@
+---
+    - include: apt_update_package_manager.yml
+    - include: apt_install_additional_packages.yml
+    - include: apt-key_install_bce_keys.yml
+    - include: apt-repository_add_repo_file.yml
+    - include: apt_update_and_upgrade_packages.yml
+    - include: apt_install_postgresql.yml
+    - include: apt_install_bce.yml
+    - include: All-platforms_include_all_configs.yml
+    - include: systemd_start_bce_services.yml
+    - include: All-platforms_PostgreSQL_version.yml
+    - include: All-platforms_BCE_check_director_status.yml
+    - include: All-platforms_BCE_check_FD_status.yml
+    - include: All-platforms_BCE_check_SD_status.yml
+    - include: apt_list_packages_build.yml

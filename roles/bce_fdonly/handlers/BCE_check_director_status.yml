@@ -1,0 +1,5 @@
+- name: check director status
+  shell: echo "status director" | /opt/bacula/bin/bconsole
+  register: dir_status
+- debug: msg="{{ dir_status.stdout.split('\n') }}"
+- debug: msg="{{ dir_status.stderr.split('\n') }}"

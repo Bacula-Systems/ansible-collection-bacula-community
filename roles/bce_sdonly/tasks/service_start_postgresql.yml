@@ -1,0 +1,9 @@
+- name: Check if PostgreSQL database is initialized - check if PG_VERSION directory exists
+  stat:
+    path: "{{ result_pgdata_directory.stdout }}/PG_VERSION"
+  register: result_PGDATA
+- name: start postgresql server
+  service:
+    name: postgresql
+    state: started
+  when: result_PGDATA.stat.exists

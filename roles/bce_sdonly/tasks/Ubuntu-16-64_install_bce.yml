@@ -1,0 +1,13 @@
+---
+    - include: apt_update_package_manager.yml
+    - include: apt_install_additional_packages.yml
+    - include: apt-key_install_bce_keys.yml
+    - include: apt-repository_add_repo_file.yml
+    - include: apt_update_and_upgrade_packages.yml
+    - include: apt_install_postgresql.yml
+    - include: apt_install_bce.yml
+    - include: apt_list_packages_build.yml
+    - include: All-platforms_config_sdonly.yml
+    - include: service_restart_sd.yml
+    - include: service_disable_stop_Director.yml
+    - include: All-platforms_config_sdonly_dir.yml

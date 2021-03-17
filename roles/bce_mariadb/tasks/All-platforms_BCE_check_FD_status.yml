@@ -1,0 +1,5 @@
+- name: check client status
+  shell: echo "status client" | /opt/bacula/bin/bconsole
+  register: fd_status
+- debug: msg="{{ fd_status.stdout.split('\n') }}"
+- debug: msg="{{ fd_status.stderr.split('\n') }}"

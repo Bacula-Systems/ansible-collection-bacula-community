@@ -1,0 +1,36 @@
+- name: stop bacula-dir service
+  service:
+    name: bacula-dir
+    state: stopped
+  register: bacula_dir_status
+- debug: msg="{{ bacula_dir_status.name }} status is {{ bacula_dir_status.state }}."
+- name: start bacula-dir service
+  service:
+    name: bacula-dir
+    state: started
+  register: bacula_dir_status
+- debug: msg="{{ bacula_dir_status.name }} status is {{ bacula_dir_status.state }}."
+- name: stop bacula-fd service
+  service:
+    name: bacula-fd
+    state: stopped
+  register: bacula_fd_status
+- debug: msg="{{ bacula_fd_status.name }} status is {{ bacula_fd_status.state }}."
+- name: start bacula-fd service
+  service:
+    name: bacula-fd
+    state: started
+  register: bacula_fd_status
+- debug: msg="{{ bacula_fd_status.name }} status is {{ bacula_fd_status.state }}."
+- name: stop bacula-sd service 
+  service:
+    name: bacula-sd
+    state: stopped
+  register: bacula_sd_status
+- debug: msg="{{ bacula_sd_status.name }} status is {{ bacula_sd_status.state }}."
+- name: start bacula-sd service
+  service:
+    name: bacula-sd
+    state: started
+  register: bacula_sd_status
+- debug: msg="{{ bacula_sd_status.name }} status is {{ bacula_sd_status.state }}."

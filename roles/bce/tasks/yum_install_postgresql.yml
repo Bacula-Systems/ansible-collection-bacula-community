@@ -1,0 +1,4 @@
+- name: install postgresql-server
+  yum:
+    name: postgresql-server
+    state: latest

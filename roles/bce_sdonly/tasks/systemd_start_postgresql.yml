@@ -1,0 +1,5 @@
+- name: start postgresql server
+  systemd:
+    name: postgresql
+    state: started
+    enabled: yes

@@ -1,0 +1,5 @@
+- name: check Catalog version
+  shell: (echo sqlquery; echo "select * from Version;") | /opt/bacula/bin/bconsole
+  register: catalog_version
+- debug: msg="{{ catalog_version.stdout.split('\n') }}"
+- debug: msg="{{ catalog_version.stderr.split('\n') }}"

@@ -1,0 +1,11 @@
+{# This configuration will be included in the Director bacula-dir.conf file #}
+Client {
+  Name = {{ client_name }}
+  Address = {{ client_hostname }}
+  FDPort = 9102
+  Catalog = "{{ catalog_name }}"
+  Password = "{{ dir_fd_password }}"
+  File Retention = 60 days
+  Job Retention = 6 months
+  AutoPrune = yes
+}

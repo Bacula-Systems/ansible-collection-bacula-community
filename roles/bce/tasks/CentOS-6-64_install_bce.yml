@@ -1,0 +1,17 @@
+---
+    - include: yum_upgrade_packages.yml
+    - include: rpm-key_install_bce_keys.yml
+    - include: yum-repository_add_repo_file.yml
+    - include: yum_install_postgresql.yml
+    - include: service_initialize_and_enable_postgresql.yml
+    - include: yum_install_bce.yml
+    - include: yum_list_packages_build.yml
+    - include: service_start_postgresql.yml
+    - include: All-platforms_create_bacula_database.yml
+    - include: All-platforms_include_all_configs.yml
+    - include: service_start_bce_services.yml
+    - include: All-platforms_BCE_check_director_status.yml
+    - include: All-platforms_BCE_check_FD_status.yml
+    - include: All-platforms_BCE_check_SD_status.yml
+    - include: All-platforms_BCE_check_catalog_version.yml
+    - include: All-platforms_PostgreSQL_version.yml

@@ -1,0 +1,44 @@
+- name: fail following tasks if director_hostname is not defined
+  fail: msg="director_hostname not provided, skipping remote Director configuration."
+  when: director_hostname is not defined
+
+- name: get the File Daemon password used to communicate with Director in the bacula-fd.conf file
+  shell: "grep ^[[:space:]]*Password -m 1 /opt/bacula/etc/bacula-fd.conf | tr -d ' ' | tr -d '\"' | cut -d \"=\" -f2"
+  register: current_fd_password
+
+- name: set the dir_fd_password
+  set_fact:
+    dir_fd_password: "{{ current_fd_password.stdout }}"
+
+- name: get the Catalog name used by the Director
+  shell: "grep 'Catalog {' /opt/bacula/etc/bacula-dir.conf -A 1 -m 1 | grep Name | tr -d ' ' | cut -d \"=\" -f2"
+  register: catalog_name
+  delegate_to: "{{ director_hostname }}"
+
+- name: set the catalog_name value
+  set_fact:
+    catalog_name: "{{ catalog_name.stdout }}"
+  delegate_to: "{{ director_hostname }}"
+
+- name: generate the resource definition to be included in the bacula-dir.conf file
+  template:
+    src: "client_conf_in_bacula_dir.j2"
+    dest: "/opt/bacula/etc/conf.d/director/{{ client_name }}-client.conf"
+    owner: root
+    group: bacula
+    mode: '0660'
+  delegate_to: "{{ director_hostname }}"
+
+- name: reload Director configuration
+  shell: echo "reload" | /opt/bacula/bin/bconsole
+  register: reload_result
+  delegate_to: "{{ director_hostname }}"
+- debug:  msg="{{ reload_result.stdout.split('\n') }}"
+- debug:  msg="{{ reload_result.stderr.split('\n') }}"
+
+- name: status client in Director
+  shell: echo "status client={{ client_name }}" | /opt/bacula/bin/bconsole
+  register: status_result
+  delegate_to: "{{ director_hostname }}"
+- debug:  msg="{{ status_result.stdout.split('\n') }}"
+- debug:  msg="{{ status_result.stderr.split('\n') }}"

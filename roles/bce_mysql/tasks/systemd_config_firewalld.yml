@@ -1,0 +1,7 @@
+- name: configure firewalld
+  firewalld:
+    port: 9101-9103/tcp
+    permanent: yes
+    state: enabled
+    zone: public
+    immediate: yes

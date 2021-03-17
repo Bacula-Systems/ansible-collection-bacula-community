@@ -1,0 +1,5 @@
+- name: check storage status
+  shell: echo "status storage" | /opt/bacula/bin/bconsole
+  register: sd_status
+- debug: msg="{{ sd_status.stdout.split('\n') }}"
+- debug: msg="{{ sd_status.stderr.split('\n') }}"

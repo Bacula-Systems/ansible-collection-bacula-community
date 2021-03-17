@@ -1,0 +1,5 @@
+- name: stop bacula-dir service 
+  service:
+    name: bacula-dir
+    enabled: no
+    state: stopped

@@ -1,0 +1,21 @@
+- name: check if bacula database already exists
+  shell: "psql -lqt | cut -d '|' -f 1 | grep -qw bacula"
+  become: true
+  become_user: postgres
+  register: bacula_database_exists
+  ignore_errors: yes
+- name: create Bacula catalog database
+  shell: "/opt/bacula/scripts/create_postgresql_database"
+  become: true
+  become_user: postgres
+  when: bacula_database_exists.rc != 0
+- name: make Bacula catalog tables
+  shell: "/opt/bacula/scripts/make_postgresql_tables"
+  become: true
+  become_user: postgres
+  when: bacula_database_exists.rc != 0
+- name: grant Bacula catalog privileges 
+  shell: "/opt/bacula/scripts/grant_postgresql_privileges"
+  become: true
+  become_user: postgres
+  when: bacula_database_exists.rc != 0

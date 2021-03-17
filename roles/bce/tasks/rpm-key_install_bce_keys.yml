@@ -1,0 +1,8 @@
+- name: Add BCE package signatures for CentOS/RedHat/SLES
+  rpm_key:
+    key: "{{ dl_area }}/{{ key_item.1 }}"
+    state: present
+  when: key_item[0].packages == 'bce'
+  loop: "{{ keys|subelements('packages_signatures') }}"
+  loop_control:
+    loop_var: key_item

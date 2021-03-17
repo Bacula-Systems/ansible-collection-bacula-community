@@ -1,0 +1,40 @@
+- name: fail following tasks if director_hostname is not defined
+  fail: msg="director_hostname not provided, skipping remote Director configuration."
+  when: director_hostname is not defined
+
+- name: get the Storage Daemon password used to communicate with Director in the bacula-sd.conf file
+  shell: "grep ^[[:space:]]*Password -m 1 /opt/bacula/etc/bacula-sd.conf | tr -d ' ' | tr -d '\"' | cut -d \"=\" -f2"
+  register: current_sd_password
+
+- name: set the dir_sd_password
+  set_fact:
+    dir_sd_password: "{{ current_sd_password.stdout }}"
+
+- name: generate the autochanger resource definition to be included in the bacula-dir.conf file
+  template:
+    src: "autochanger_conf_in_bacula_dir.j2"
+    dest: "/opt/bacula/etc/conf.d/director/{{ storage_name }}-autochanger.conf"
+    owner: bacula
+    group: bacula
+    mode: '0660'
+  delegate_to: "{{ director_hostname }}"
+
+- name: reload Director configuration
+  shell: echo "reload" | /opt/bacula/bin/bconsole
+  register: reload_result
+  delegate_to: "{{ director_hostname }}"
+- debug:  msg="{{ reload_result.stdout.split('\n') }}"
+- debug:  msg="{{ reload_result.stderr.split('\n') }}"
+
+- name: status storage in Director
+  shell: echo "status storage={{ storage_name }}-autochanger" | /opt/bacula/bin/bconsole
+  register: status_result
+  delegate_to: "{{ director_hostname }}"
+- debug:  msg="{{ status_result.stdout.split('\n') }}"
+- debug:  msg="{{ status_result.stderr.split('\n') }}"
+
+- name: display any message in bconsole
+  shell: echo "messages" | /opt/bacula/bin/bconsole
+  register: status_messages
+  delegate_to: "{{ director_hostname }}"
+- debug:  msg="{{ status_messages.stdout.split('\n') }}"

@@ -1,0 +1,6 @@
+- name: get the list of bacula community packages
+  shell: "apt list --installed | grep bacula-client"
+  register: deb_packages
+- name: list bacula community packages builds
+  debug:
+    msg: "{{ deb_packages.stdout_lines }}"

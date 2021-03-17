@@ -1,0 +1,30 @@
+{# This configuration will be included in the Director bacula-dir.conf file #}
+Client {
+  Name = rescue-fd
+  Address = 0.0.0.0 # Will be set automatically by LinuxBMR
+  Password = bacularescue
+  Catalog = "{{ catalog_name }}"
+}
+
+Console {
+  Name = rescue-fd # MUST HAVE same name as Client resource
+  Password = bacularescue
+  CommandACL = *all*
+  ClientACL = *all*
+  CatalogACL = *all*
+  JobACL = *all*
+  StorageACL = *all*
+  ScheduleACL = *all*
+  PoolACL = *all*
+  FileSetACL = *all*
+  WhereACL = *all*
+
+  # The next two ACLs are required when using
+  # Bacula Community 8.8.0 and above
+  UserIdACL = *all*
+  DirectoryACL = *all*
+
+  # This last ACL is available when using
+  # Bacula Community 8.8.0 and above but is not required
+  RestoreClientACL = *all*
+}

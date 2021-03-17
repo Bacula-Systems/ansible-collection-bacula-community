@@ -1,0 +1,6 @@
+---
+    - include: "{{ item }}"
+      with_first_found:
+        - files:
+          - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}-{{ansible_userspace_bits}}_install_bce.yml"
+          skip: true 

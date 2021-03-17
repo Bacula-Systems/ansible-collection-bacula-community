@@ -1,0 +1,34 @@
+Autochanger {
+  Name = {{ storage_name }}-Chgr
+  Device = {{ storage_name }}-Chgr-Dev0, {{ storage_name }}-Chgr-Dev1
+  Changer Command = ""
+  Changer Device = /dev/null
+}
+
+Device {
+  Name = {{ storage_name }}-Chgr-Dev0
+  Device Type = File
+  DriveIndex = 0
+  Media Type = {{ storage_name }}-volume
+  Archive Device = {{ volumes_directory }}
+  LabelMedia = yes;                   # lets Bacula label unlabeled media
+  Random Access = Yes;
+  AutomaticMount = yes;               # when device opened, read it
+  RemovableMedia = no;
+  AlwaysOpen = no;
+  Maximum Concurrent Jobs = 1
+}
+
+Device {
+  Name = {{ storage_name }}-Chgr-Dev1
+  Device Type = File
+  DriveIndex = 1
+  Media Type = {{ storage_name }}-volume
+  Archive Device = {{ volumes_directory }}
+  LabelMedia = yes;                   # lets Bacula label unlabeled media
+  Random Access = Yes;
+  AutomaticMount = yes;               # when device opened, read it
+  RemovableMedia = no;
+  AlwaysOpen = no;
+  Maximum Concurrent Jobs = 1
+}

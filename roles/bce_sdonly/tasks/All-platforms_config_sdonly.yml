@@ -1,0 +1,74 @@
+- name: create volumes directory
+  file:
+    path: "{{ volumes_directory }}"
+    state: directory
+    owner: bacula
+    group: bacula
+    mode: '0755'
+
+- name: create conf.d/storage directory
+  file:
+    path: /opt/bacula/etc/conf.d/storage
+    state: directory
+    mode: '0770'
+    owner: bacula
+    group: bacula
+
+- name: create empty file in the conf.d storage directory
+  file:
+    path: /opt/bacula/etc/conf.d/storage/empty.conf
+    state: touch
+    mode: '0770'
+    owner: bacula
+    group: bacula
+
+- name: Modify the Storage name, if defined
+  ansible.builtin.replace:
+    path: /opt/bacula/etc/bacula-sd.conf
+    after: 'Storage {'
+    regexp: "{{ storage_hostname.split('.')[0] }}-sd"
+    replace: "{{ storage_name }}"
+  when: storage_name is defined
+
+- name: include the line to include all configuration files in the conf.d/storage directory in the bacula-sd.conf file
+  blockinfile:
+    path: /opt/bacula/etc/bacula-sd.conf
+    insertafter: EOF
+    block: |
+      @|"sh -c 'for f in /opt/bacula/etc/conf.d/storage/*.conf ; do echo @${f} ; done'"
+
+- name: autochanger resource definition to be included in the bacula-sd.conf file
+  template:
+    src: "autochanger_conf_in_bacula_sd.j2"
+    dest: "/opt/bacula/etc/conf.d/storage/{{ storage_name }}-autochanger-devices.conf"
+    owner: bacula
+    group: bacula
+    mode: '0660'
+
+- name: fail following tasks if director_hostname is not defined
+  fail: msg="director_hostname not provided, skipping remote Director configuration."
+  when: director_hostname is not defined
+
+- name: add the Director to the Standard Messages resource
+  blockinfile:
+    path: /opt/bacula/etc/bacula-sd.conf
+    marker: "# {mark} Add Director to Standard Messages resource"
+    insertafter: "^Messages"
+    block: |
+      director = {{ director_name }} = all, !skipped, !restored, !saved
+
+- name: get the Storage Daemon password used to communicate with Director in the bacula-sd.conf file
+  shell: "grep ^[[:space:]]*Password -m 1 /opt/bacula/etc/bacula-sd.conf | tr -d ' ' | tr -d '\"' | cut -d \"=\" -f2"
+  register: current_sd_password
+
+- name: set the dir_sd_password
+  set_fact:
+    dir_sd_password: "{{ current_sd_password.stdout }}"
+
+- name: director to in the bacula-sd.conf file
+  template:
+    src: "director_conf_in_bacula_sd.j2"
+    dest: "/opt/bacula/etc/conf.d/storage/{{ director_name }}.conf"
+    owner: bacula
+    group: bacula
+    mode: '0660'

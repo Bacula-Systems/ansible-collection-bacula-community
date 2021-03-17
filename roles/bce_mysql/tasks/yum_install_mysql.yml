@@ -1,0 +1,4 @@
+- name: install mysql-server
+  yum:
+    name: mysql-server
+    state: latest

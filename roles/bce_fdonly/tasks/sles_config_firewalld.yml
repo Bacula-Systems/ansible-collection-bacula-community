@@ -1,0 +1,4 @@
+- name: configure firewalld add ports 9101-9103
+  shell: "firewall-cmd --permanent --add-port=9101-9103/tcp" 
+- name: configure firewalld reload
+  shell: "firewall-cmd --reload" 

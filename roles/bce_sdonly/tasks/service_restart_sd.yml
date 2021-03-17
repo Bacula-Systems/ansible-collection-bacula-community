@@ -1,0 +1,14 @@
+- name: restart bacula-sd service
+  service:
+    name: bacula-sd
+    state: restarted
+  ignore_errors: yes
+- name: Short delay before checking Storage Daemon status
+  wait_for:
+    timeout: 10
+- name: check bacula-sd daemon status
+  shell: service bacula-sd status
+  register: bacula_sd_status
+  ignore_errors: yes
+- debug: msg="{{ bacula_sd_status.stdout.split('\n') }}"
+- debug: msg="{{ bacula_sd_status.stderr.split('\n') }}"

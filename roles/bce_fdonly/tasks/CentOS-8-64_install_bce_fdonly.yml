@@ -1,0 +1,10 @@
+---
+    - include: rpm-key_install_bce_keys.yml
+    - include: yum-repository_add_repo_file.yml
+    - include: yum_install_bce_fdonly.yml
+    - include: systemd_start_fd.yml
+    - include: All-platforms_config_fdonly.yml
+    - include: systemd_config_firewalld.yml
+    - include: systemd_restart_fd.yml
+    - include: yum_list_packages_build.yml
+    - include: All-platforms_config_fdonly_dir.yml

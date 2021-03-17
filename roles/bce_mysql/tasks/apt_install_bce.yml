@@ -1,0 +1,9 @@
+# This task list will install the latest Bacula Enterprise version
+# available in the repository files added
+# This will allow the upgrade of existent BCE install by
+# adding the new repo file and using this same role to update
+- name: install Bacula Enteprise Edition mysql
+  apt:
+    name: bacula-mysql
+    state: present
+  register: result

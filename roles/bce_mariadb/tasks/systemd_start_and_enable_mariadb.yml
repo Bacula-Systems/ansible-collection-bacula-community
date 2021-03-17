@@ -1,0 +1,5 @@
+- name: start and enable MariaDB
+  systemd:
+    name: mariadb
+    enabled: yes
+    state: started

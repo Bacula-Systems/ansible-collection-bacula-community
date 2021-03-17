@@ -1,0 +1,39 @@
+- name: stop bacula-dir service
+  systemd:
+    name: bacula-dir
+    state: stopped
+- name: start bacula-dir service
+  systemd:
+    name: bacula-dir
+    state: started
+- name: bacula-dir service status
+  shell: "systemctl status bacula-dir"
+  register: bacula_dir_status
+- debug:  msg="{{ bacula_dir_status.stdout.split('\n') }}"
+- debug:  msg="{{ bacula_dir_status.stderr.split('\n') }}"
+- name: stop bacula-fd service
+  systemd:
+    name: bacula-fd
+    state: stopped
+- name: start bacula-fd service
+  systemd:
+    name: bacula-fd
+    state: started
+- name: bacula-fd service status
+  shell: "systemctl status bacula-fd"
+  register: bacula_fd_status
+- debug:  msg="{{ bacula_fd_status.stdout.split('\n') }}"
+- debug:  msg="{{ bacula_fd_status.stderr.split('\n') }}"
+- name: stop bacula-sd service
+  systemd:
+    name: bacula-sd
+    state: stopped
+- name: start bacula-sd service
+  systemd:
+    name: bacula-sd
+    state: started
+- name: bacula-sd service status
+  shell: "systemctl status bacula-sd"
+  register: bacula_sd_status
+- debug:  msg="{{ bacula_sd_status.stdout.split('\n') }}"
+- debug:  msg="{{ bacula_sd_status.stderr.split('\n') }}"

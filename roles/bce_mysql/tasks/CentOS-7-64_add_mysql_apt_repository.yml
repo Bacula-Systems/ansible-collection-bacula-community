@@ -2,4 +2,3 @@
   yum:
     name: https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
     state: present
-  when: database == 'mysql'

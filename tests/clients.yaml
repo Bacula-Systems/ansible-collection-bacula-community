@@ -1,10 +1,10 @@
 ---
 clients:
   hosts:
-    client1.domain.com:
-      client_hostname: client1.domain.com
-    client2.domain.com:
-      client_hostname: client2.domain.com
+    client1.example.com:
+      client_hostname: client1.example.com
+    client2.example.com:
+      client_hostname: client2.example.com
   vars:
     bce_version: 11.0.1
-    director_hostname: baculadir.domain.com
+    director_hostname: baculadir.example.com

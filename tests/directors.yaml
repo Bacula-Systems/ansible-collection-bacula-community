@@ -1,6 +1,6 @@
 ---
 directors:
   hosts:
-    baculadir.domain.com:
-      director_hostname: baculadir.domain.com
+    baculadir.example.com:
+      director_hostname: baculadir.example.com
       bce_version: 11.0.1

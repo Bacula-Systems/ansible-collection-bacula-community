@@ -10,17 +10,17 @@
   fail: msg="director_hostname not provided, skipping remote Director configuration."
   when: director_hostname is not defined
 
-- name: create conf.d directory
+- name: create ansible.conf.d directory
   file:
-    path: /opt/bacula/etc/conf.d
+    path: /opt/bacula/etc/ansible.conf.d
     state: directory
     mode: '0770'
     owner: root
     group: bacula
 
-- name: create empty file in the conf.d client directory
+- name: create empty file in the ansible.conf.d client directory
   file:
-    path: /opt/bacula/etc/conf.d/empty.conf
+    path: /opt/bacula/etc/ansible.conf.d/empty.conf
     state: touch
     mode: '0770'
     owner: root
@@ -34,17 +34,17 @@
   set_fact:
     dir_fd_password: "{{ current_fd_password.stdout }}"
 
-- name: include the line to include all configuration files in the conf.d directory in the bacula-fd.conf file
+- name: include the line to include all configuration files in the ansible.conf.d directory in the bacula-fd.conf file
   blockinfile:
     path: /opt/bacula/etc/bacula-fd.conf
     insertafter: EOF
     block: |
-      @|"sh -c 'for f in /opt/bacula/etc/conf.d/*.conf ; do echo @${f} ; done'"
+      @|"sh -c 'for f in /opt/bacula/etc/ansible.conf.d/*.conf ; do echo @${f} ; done'"
 
 - name: include director in the bacula-fd.conf file
   template:
     src: "director_conf_in_bacula_fd.j2"
-    dest: "/opt/bacula/etc/conf.d/{{ director_name }}.conf"
+    dest: "/opt/bacula/etc/ansible.conf.d/{{ director_name }}.conf"
     owner: root
     group: bacula
     mode: '0660'

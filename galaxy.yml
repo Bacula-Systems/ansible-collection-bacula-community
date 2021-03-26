@@ -2,7 +2,7 @@
 # The namespace of the collection. This can be a company/brand/organization or product namespace under which all
 # content lives. May only contain alphanumeric lowercase characters and underscores. Namespaces cannot start with
 # underscores or numbers and cannot contain consecutive underscores
-namespace: bacula
+namespace: baculasystems
 
 # The name of the collection. Has the same character restrictions as 'namespace'
 name: bacula_community
@@ -21,7 +21,7 @@ authors:
 
 ### OPTIONAL but strongly recommended
 # A short summary description of the collection
-description: An Ansible Collection of roles to install Bacula Community - PostgreSQL Catalog, Bacula File Daemon only and BWeb in RHEL/CentOS/Debian/Ubuntu/OracleLinux/SLES.
+description: An Ansible Collection of roles to install Bacula Community - PostgreSQL Catalog, Bacula File Daemon only and BWeb in RHEL/CentOS/Debian/Ubuntu/OracleLinux.
 
 # Either a single license or a list of licenses for content inside of a collection. Ansible Galaxy currently only
 # accepts L(SPDX,https://spdx.org/licenses/) licenses. This key is mutually exclusive with 'license_file'
@@ -35,7 +35,7 @@ license_file:
 
 # A list of tags you want to associate with the collection for indexing/searching. A tag name has the same character
 # requirements as 'namespace' and 'name'
-tags: [bacula, bacula_community]
+tags: [baculasystems, bacula_community]
 
 # Collections that this collection requires to be installed for it to be usable. The key of the dict is the
 # collection label 'namespace.name'. The value is a version range
@@ -44,16 +44,16 @@ tags: [bacula, bacula_community]
 dependencies: { "ansible.posix": ">=1.1.1" }
 
 # The URL of the originating SCM repository
-repository: https://github.com/Bacula-Systems/ansible-collection-bacula-enterprise
+repository: https://github.com/Bacula-Systems/ansible-collection-bacula-community
 
 # The URL to any online docs
-documentation: http://docs.baculasystems.com
+# documentation: http://docs.baculasystems.com
 
 # The URL to the homepage of the collection/project
 homepage: http://www.baculasystems.com
 
 # The URL to the collection issue tracker
-issues: http://example.com/issue/tracker
+# issues: http://example.com/issue/tracker
 
 # A list of file glob-like patterns used to filter any files or directories that should not be included in the build
 # artifact. A pattern is matched from the relative path of the file or directory of the collection directory. This

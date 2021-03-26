@@ -23,7 +23,7 @@
 - name: generate the resource definition to be included in the bacula-dir.conf file
   template:
     src: "client_conf_in_bacula_dir.j2"
-    dest: "/opt/bacula/etc/conf.d/director/{{ client_name }}-client.conf"
+    dest: "/opt/bacula/etc/ansible.conf.d/director/{{ client_name }}-client.conf"
     owner: root
     group: bacula
     mode: '0660'

@@ -6,17 +6,17 @@
     group: bacula
     mode: '0755'
 
-- name: create conf.d/storage directory
+- name: create ansible.conf.d/storage directory
   file:
-    path: /opt/bacula/etc/conf.d/storage
+    path: /opt/bacula/etc/ansible.conf.d/storage
     state: directory
     mode: '0770'
     owner: bacula
     group: bacula
 
-- name: create empty file in the conf.d storage directory
+- name: create empty file in the ansible.conf.d storage directory
   file:
-    path: /opt/bacula/etc/conf.d/storage/empty.conf
+    path: /opt/bacula/etc/ansible.conf.d/storage/empty.conf
     state: touch
     mode: '0770'
     owner: bacula
@@ -30,17 +30,17 @@
     replace: "{{ storage_name }}"
   when: storage_name is defined
 
-- name: include the line to include all configuration files in the conf.d/storage directory in the bacula-sd.conf file
+- name: include the line to include all configuration files in the ansible.conf.d/storage directory in the bacula-sd.conf file
   blockinfile:
     path: /opt/bacula/etc/bacula-sd.conf
     insertafter: EOF
     block: |
-      @|"sh -c 'for f in /opt/bacula/etc/conf.d/storage/*.conf ; do echo @${f} ; done'"
+      @|"sh -c 'for f in /opt/bacula/etc/ansible.conf.d/storage/*.conf ; do echo @${f} ; done'"
 
 - name: autochanger resource definition to be included in the bacula-sd.conf file
   template:
     src: "autochanger_conf_in_bacula_sd.j2"
-    dest: "/opt/bacula/etc/conf.d/storage/{{ storage_name }}-autochanger-devices.conf"
+    dest: "/opt/bacula/etc/ansible.conf.d/storage/{{ storage_name }}-autochanger-devices.conf"
     owner: bacula
     group: bacula
     mode: '0660'
@@ -68,7 +68,7 @@
 - name: director to in the bacula-sd.conf file
   template:
     src: "director_conf_in_bacula_sd.j2"
-    dest: "/opt/bacula/etc/conf.d/storage/{{ director_name }}.conf"
+    dest: "/opt/bacula/etc/ansible.conf.d/storage/{{ director_name }}.conf"
     owner: bacula
     group: bacula
     mode: '0660'

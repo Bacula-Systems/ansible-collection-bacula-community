@@ -9,5 +9,5 @@
     - include: apt_list_packages_build.yml
     - include: All-platforms_config_sdonly.yml
     - include: service_restart_sd.yml
-    - include: service_disable_stop_Director.yml
     - include: All-platforms_config_sdonly_dir.yml
+    - include: service_disable_stop_Director.yml

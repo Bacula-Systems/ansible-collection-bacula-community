@@ -1,6 +1,6 @@
 ---
 directors:
   hosts:
-    baculadir.example.com:
-      director_hostname: baculadir.example.com
-      bce_version: 11.0.1
+    am-bce-dir-11-0-2-tst:
+      director_hostname: am-bce-dir-11-0-2-tst.supportlab.lan
+      bce_version: 11.0.2

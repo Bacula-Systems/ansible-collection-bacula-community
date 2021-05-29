@@ -1,6 +1,6 @@
-- name: get the list of bacula enterprise packages
-  shell: "apt list --installed | grep bacula-enterprise-mysql"
+- name: get the list of bacula community packages
+  shell: "apt list --installed | grep bacula-mysql"
   register: deb_packages
-- name: list bacula enterprise packages builds
+- name: list bacula community packages builds
   debug:
     msg: "{{ deb_packages.stdout_lines }}"

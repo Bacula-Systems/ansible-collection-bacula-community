@@ -4,4 +4,4 @@
   tasks:
   - name: Install Bacula Community - MySQL Catalog
     import_role:
-      name: bacula.bacula_community.bce_mysql
+      name: baculasystems.bacula_community.bce_mysql

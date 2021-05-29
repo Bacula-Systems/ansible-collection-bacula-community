@@ -1,0 +1,11 @@
+# This task list will install the latest Bacula Community version
+# available in the repository files added
+# This will allow the upgrade of existent BCE install by
+# adding the new repo file and using this same role to update
+- name: install Bacula Enteprise Edition postgresql
+  zypper:
+    name: bacula-postgresql
+    state: latest
+  register: result
+- debug: msg="{{ result.stderr.split('\n') }}"
+  when: result.stderr is defined

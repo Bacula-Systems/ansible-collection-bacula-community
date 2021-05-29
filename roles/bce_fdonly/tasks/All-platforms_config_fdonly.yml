@@ -10,21 +10,18 @@
   fail: msg="director_hostname not provided, skipping remote Director configuration."
   when: director_hostname is not defined
 
-- name: create ansible.conf.d directory
+- name: create ansible.conf.d and ansible.conf.d/client directories, if they don't exist
   file:
-    path: /opt/bacula/etc/ansible.conf.d
+    path: "{{ directories }}"
     state: directory
     mode: '0770'
-    owner: root
+    owner: bacula
     group: bacula
-
-- name: create empty file in the ansible.conf.d client directory
-  file:
-    path: /opt/bacula/etc/ansible.conf.d/empty.conf
-    state: touch
-    mode: '0770'
-    owner: root
-    group: bacula
+  loop:
+    - /opt/bacula/etc/ansible.conf.d
+    - /opt/bacula/etc/ansible.conf.d/client
+  loop_control:
+    loop_var: directories
 
 - name: get the File Daemon password used to communicate with Director in the bacula-fd.conf file
   shell: "grep ^[[:space:]]*Password -m 1 /opt/bacula/etc/bacula-fd.conf | tr -d ' ' | tr -d '\"' | cut -d \"=\" -f2"
@@ -34,17 +31,18 @@
   set_fact:
     dir_fd_password: "{{ current_fd_password.stdout }}"
 
-- name: include the line to include all configuration files in the ansible.conf.d directory in the bacula-fd.conf file
-  blockinfile:
-    path: /opt/bacula/etc/bacula-fd.conf
-    insertafter: EOF
-    block: |
-      @|"sh -c 'for f in /opt/bacula/etc/ansible.conf.d/*.conf ; do echo @${f} ; done'"
-
 - name: include director in the bacula-fd.conf file
   template:
     src: "director_conf_in_bacula_fd.j2"
-    dest: "/opt/bacula/etc/ansible.conf.d/{{ director_name }}.conf"
-    owner: root
+    dest: "/opt/bacula/etc/ansible.conf.d/client/{{ director_name }}.conf"
+    owner: bacula
     group: bacula
     mode: '0660'
+
+- name: include the line to include the Director configuration in the ansible.conf.d directory in the bacula-fd.conf file
+  blockinfile:
+    path: /opt/bacula/etc/bacula-fd.conf
+    insertafter: EOF
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - Add Director {{ director_name }} in the bacula-fd.conf file"
+    block: |
+      @/opt/bacula/etc/ansible.conf.d/client/{{ director_name }}.conf

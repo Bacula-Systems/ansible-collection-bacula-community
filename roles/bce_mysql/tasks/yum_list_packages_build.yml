@@ -2,8 +2,8 @@
   yum:
     list=installed
   register: yum_packages
-- name: list bacula enterprise packages builds
+- name: list bacula community packages builds
   debug:
     msg: "{{ yum_packages | json_query(query_packages) }}"
   vars:
-    query_packages: "results[?name == 'bacula-enterprise-mysql']"
+    query_packages: "results[?name == 'bacula-mysql']"

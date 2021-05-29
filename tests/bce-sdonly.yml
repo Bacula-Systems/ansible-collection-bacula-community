@@ -4,4 +4,4 @@
 
   - name: Install and configure Bacula Storage Daemon only
     import_role:
-      name: bacula.bacula_community.bce_sdonly
+      name: baculasystems.bacula_community.bce_sdonly

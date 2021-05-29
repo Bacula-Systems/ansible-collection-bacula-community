@@ -15,8 +15,11 @@
         storage_name: "{{ storage_hostname.split('.')[0] }}-sd"
       when: storage_name is not defined
 
-    - include: "{{ item }}"
-      with_first_found:
-        - files:
-          - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}-{{ansible_userspace_bits}}_install_bce.yml"
-          skip: true 
+    - name: Include Bacula Community Plugin Installation file
+      include: "{{ item }}"
+      vars:
+        params:
+          files:
+            - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}-{{ansible_userspace_bits}}_install_bce.yml"
+            - "{{ ansible_distribution }}-{{ ansible_distribution_version }}-{{ansible_userspace_bits}}_install_bce.yml"
+      loop: "{{ query('first_found', params) }}"

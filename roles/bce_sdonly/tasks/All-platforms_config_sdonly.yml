@@ -6,21 +6,18 @@
     group: bacula
     mode: '0755'
 
-- name: create ansible.conf.d/storage directory
+- name: create ansible.conf.d and ansible.conf.d/storage directories, if they don't exist
   file:
-    path: /opt/bacula/etc/ansible.conf.d/storage
+    path: "{{ directories }}"
     state: directory
     mode: '0770'
     owner: bacula
     group: bacula
-
-- name: create empty file in the ansible.conf.d storage directory
-  file:
-    path: /opt/bacula/etc/ansible.conf.d/storage/empty.conf
-    state: touch
-    mode: '0770'
-    owner: bacula
-    group: bacula
+  loop: 
+    - /opt/bacula/etc/ansible.conf.d
+    - /opt/bacula/etc/ansible.conf.d/storage
+  loop_control:
+    loop_var: directories
 
 - name: Modify the Storage name, if defined
   ansible.builtin.replace:
@@ -30,13 +27,6 @@
     replace: "{{ storage_name }}"
   when: storage_name is defined
 
-- name: include the line to include all configuration files in the ansible.conf.d/storage directory in the bacula-sd.conf file
-  blockinfile:
-    path: /opt/bacula/etc/bacula-sd.conf
-    insertafter: EOF
-    block: |
-      @|"sh -c 'for f in /opt/bacula/etc/ansible.conf.d/storage/*.conf ; do echo @${f} ; done'"
-
 - name: autochanger resource definition to be included in the bacula-sd.conf file
   template:
     src: "autochanger_conf_in_bacula_sd.j2"
@@ -45,6 +35,14 @@
     group: bacula
     mode: '0660'
 
+- name: include the line to include the Autochanger configuration in the ansible.conf.d directory in the bacula-sd.conf file
+  blockinfile:
+    path: /opt/bacula/etc/bacula-sd.conf
+    insertafter: EOF
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - Autochanger - {{ storage_name }} in the bacula-sd.conf file"
+    block: |
+      @/opt/bacula/etc/ansible.conf.d/storage/{{ storage_name }}-autochanger-devices.conf
+
 - name: fail following tasks if director_hostname is not defined
   fail: msg="director_hostname not provided, skipping remote Director configuration."
   when: director_hostname is not defined
@@ -52,8 +50,8 @@
 - name: add the Director to the Standard Messages resource
   blockinfile:
     path: /opt/bacula/etc/bacula-sd.conf
-    marker: "# {mark} Add Director to Standard Messages resource"
     insertafter: "^Messages"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - Add {{ director_name }} in Messages resource"
     block: |
       director = {{ director_name }} = all, !skipped, !restored, !saved
 
@@ -72,3 +70,11 @@
     owner: bacula
     group: bacula
     mode: '0660'
+
+- name: include the line to include the Director configuration in the ansible.conf.d directory in the bacula-sd.conf file
+  blockinfile:
+    path: /opt/bacula/etc/bacula-sd.conf
+    insertafter: EOF
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - Add {{ director_name }} to the bacula-sd.conf"
+    block: |
+      @/opt/bacula/etc/ansible.conf.d/storage/{{ director_name }}.conf

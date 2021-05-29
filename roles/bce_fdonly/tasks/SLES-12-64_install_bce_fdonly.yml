@@ -1,0 +1,7 @@
+---
+    - include: zypper-repository_add_repo_file.yml
+    - include: zypper_install_bce_fdonly.yml
+    - include: systemd_start_fd.yml
+    - include: All-platforms_config_fdonly.yml
+    - include: systemd_restart_fd.yml
+    - include: zypper_list_packages_build.yml

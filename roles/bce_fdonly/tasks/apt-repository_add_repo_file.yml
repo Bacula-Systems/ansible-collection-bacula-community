@@ -6,7 +6,7 @@
     loop_var: repo_item
 - name: Add BCE APT repository
   apt_repository:
-    repo: "deb {{ dl_area }}/debs/bin/{{ bce_version }}/{{ codename}}-{{ architecture }}/ {{ codename }} main"
+    repo: "deb {{ dl_area }}/debs/{{ bce_version }}/{{ codename }}/{{ architecture }}/ {{ codename }} main"
     filename: "{{ repo_filename }}"
     codename: "{{ codename }}"
     state: present
@@ -15,6 +15,7 @@
 - name: update repositories cache
   apt:
     update_cache: yes
+    allow_unauthenticated: no
   register: apt_update_result
 - debug:  msg="{{ apt_update_result.stdout.split('\n') }}"
   when: apt_update_result.stdout is defined

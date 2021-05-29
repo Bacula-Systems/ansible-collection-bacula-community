@@ -4,4 +4,4 @@
   tasks:
   - name: Install Bacula Community - PostgreSQL Catalog
     import_role:
-      name: bacula.bacula_community.bce
+      name: baculasystems.bacula_community.bce

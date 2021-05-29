@@ -1,0 +1,12 @@
+- name: gather variables
+  include_vars: "{{ repo_item }}"
+  with_first_found:
+  - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}{{ ansible_distribution_release}}-{{ansible_userspace_bits}}-repo.yml"
+  loop_control:
+    loop_var: repo_item
+- name: Add BCE ZYPPER repository
+  zypper_repository:
+    name: "{{ repo_filename }}"
+    description: "{{ description }}"
+    repo: "{{ dl_area }}/rpms/bin/{{ bce_version }}/{{ sles_version }}-{{ architecture }}/"
+    auto_import_keys: "{{ auto_import_keys }}"

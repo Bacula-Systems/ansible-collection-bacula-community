@@ -2,7 +2,7 @@
 # available in the repository files added
 # This will allow the upgrade of existent BCE install by
 # adding the new repo file and using this same role to update
-- name: install Bacula Community postgresql
+- name: install Bacula Enteprise Edition postgresql
   apt:
     name: bacula-postgresql
     state: present

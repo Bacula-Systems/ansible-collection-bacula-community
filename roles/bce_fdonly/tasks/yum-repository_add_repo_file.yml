@@ -4,12 +4,12 @@
   - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}-{{ansible_userspace_bits}}-repo.yml"
   loop_control:
     loop_var: repo_item
-- name: Add BCE YUM repository
+- name: Add BCE repository for CentOS hosts
   yum_repository:
     name: "{{ repo_name }}"
     file: "{{ repo_filename }}"
     description: "{{ description }}"
-    baseurl: "{{ dl_area }}/rpms/bin/{{ bce_version }}/{{ rhel_version }}-{{ architecture }}/"
+    baseurl: "{{ dl_area }}/rpms/{{ bce_version }}/{{ rhel_version }}/{{ architecture }}/"
     enabled: "{{ enabled }}"
     protect: "{{ protect }}"
     gpgcheck: "{{ gpgcheck }}"

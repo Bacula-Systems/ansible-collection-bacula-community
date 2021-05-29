@@ -11,5 +11,5 @@
     - include: All-platforms_config_sdonly.yml
     - include: systemd_config_firewalld.yml
     - include: systemd_restart_sd.yml
-    - include: systemd_disable_stop_Director.yml
     - include: All-platforms_config_sdonly_dir.yml
+    - include: systemd_disable_stop_Director.yml

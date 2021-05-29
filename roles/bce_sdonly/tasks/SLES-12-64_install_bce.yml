@@ -1,0 +1,12 @@
+---
+    - include: zypper_update_and_upgrade_packages.yml
+    - include: zypper-repository_add_repo_file.yml
+    - include: zypper_install_postgresql.yml
+    - include: zypper_install_bce.yml
+    - include: zypper_list_packages_build.yml
+    - include: systemd_start_postgresql.yml
+    - include: All-platforms_create_bacula_database.yml
+    - include: All-platforms_config_sdonly.yml
+    - include: systemd_restart_sd.yml
+    - include: All-platforms_config_sdonly_dir.yml
+    - include: systemd_disable_stop_Director.yml

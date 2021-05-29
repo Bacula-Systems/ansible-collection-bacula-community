@@ -15,8 +15,11 @@
         client_name: "{{ client_hostname.split('.')[0] }}-fd"
       when: client_name is not defined
 
-    - include: "{{ item }}"
-      with_first_found:
-        - files:
-          - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}-{{ansible_userspace_bits}}_install_bce_fdonly.yml"
-          errors: ignore
+    - name: Include Bacula Community File Daemon only Installation file
+      include: "{{ item }}"
+      vars:
+        params:
+          files:
+            - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}-{{ansible_userspace_bits}}_install_bce_fdonly.yml"
+            - "{{ ansible_distribution }}-{{ ansible_distribution_version }}-{{ansible_userspace_bits}}_install_bce_fdonly.yml"
+      loop: "{{ query('first_found', params) }}"

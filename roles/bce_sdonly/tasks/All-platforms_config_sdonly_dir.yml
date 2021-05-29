@@ -10,13 +10,37 @@
   set_fact:
     dir_sd_password: "{{ current_sd_password.stdout }}"
 
+- name: create ansible.conf.di, ansible.conf.d/director and ansible.conf.d/director/storages directories, if they don't exist
+  file:
+    path: "{{ directories }}"
+    state: directory
+    mode: '0770'
+    owner: bacula
+    group: bacula
+  loop: 
+    - /opt/bacula/etc/ansible.conf.d
+    - /opt/bacula/etc/ansible.conf.d/director
+    - /opt/bacula/etc/ansible.conf.d/director/storages
+  loop_control:
+    loop_var: directories
+  delegate_to: "{{ director_hostname }}"
+
 - name: generate the autochanger resource definition to be included in the bacula-dir.conf file
   template:
     src: "autochanger_conf_in_bacula_dir.j2"
-    dest: "/opt/bacula/etc/ansible.conf.d/director/{{ storage_name }}-autochanger.conf"
+    dest: "/opt/bacula/etc/ansible.conf.d/director/storages/{{ storage_name }}-autochanger.conf"
     owner: bacula
     group: bacula
     mode: '0660'
+  delegate_to: "{{ director_hostname }}"
+
+- name: include the line to include the Autochanger configuration in the ansible.conf.d directory in the bacula-dir.conf file
+  blockinfile:
+    path: /opt/bacula/etc/bacula-dir.conf
+    insertafter: EOF
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - Autochanger - {{ storage_name }} in the bacula-dir.conf file"
+    block: |
+      @/opt/bacula/etc/ansible.conf.d/director/storages/{{ storage_name }}-autochanger.conf
   delegate_to: "{{ director_hostname }}"
 
 - name: reload Director configuration

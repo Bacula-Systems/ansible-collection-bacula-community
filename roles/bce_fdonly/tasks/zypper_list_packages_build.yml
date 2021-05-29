@@ -1,0 +1,6 @@
+- name: get the list of bacula community packages
+  shell: "zypper packages --installed-only | grep bacula-client" 
+  register: rpm_packages
+- name: list bacula community packages builds
+  debug:
+    msg: "{{ rpm_packages.stdout_lines }}"

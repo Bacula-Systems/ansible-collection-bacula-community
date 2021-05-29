@@ -7,22 +7,8 @@
     group: bacula
 - name: copy any .conf file to the /opt/bacula/etc/ansible.conf.d/director directory
   copy:
-    src: /root/.ansible/collections/ansible_collections/bacula/bacula_community/roles/bce/files/
+    src: files/
     dest: /opt/bacula/etc/ansible.conf.d/director/
-    mode: '0770'
-    owner: bacula
-    group: bacula
-- name: create ansible.conf.d/storage directory
-  file:
-    path: /opt/bacula/etc/ansible.conf.d/storage
-    state: directory
-    mode: '0770'
-    owner: bacula
-    group: bacula
-- name: create empty file in the ansible.conf.d storage directory
-  file:
-    path: /opt/bacula/etc/ansible.conf.d/storage/empty.conf
-    state: touch
     mode: '0770'
     owner: bacula
     group: bacula
@@ -30,11 +16,6 @@
   blockinfile:
     path: /opt/bacula/etc/bacula-dir.conf
     insertafter: EOF
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - include any file in the bce role files directory"
     block: |
       @|"sh -c 'for f in /opt/bacula/etc/ansible.conf.d/director/*.conf ; do echo @${f} ; done'"
-- name: include the line to include all configuration files in the ansible.conf.d/storage directory in the bacula-sd.conf file
-  blockinfile:
-    path: /opt/bacula/etc/bacula-sd.conf
-    insertafter: EOF
-    block: |
-      @|"sh -c 'for f in /opt/bacula/etc/ansible.conf.d/storage/*.conf ; do echo @${f} ; done'"

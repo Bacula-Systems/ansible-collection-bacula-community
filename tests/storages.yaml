@@ -7,5 +7,5 @@ storages:
       storage_hostname: storage2.example.com
   vars:
     director_hostname: baculadir.example.com
-    bce_version: 11.0.1
+    bce_version: 11.0.5
     volumes_directory: /opt/bacula/volumes

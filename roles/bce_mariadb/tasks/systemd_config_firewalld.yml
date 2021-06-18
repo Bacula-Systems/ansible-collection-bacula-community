@@ -1,5 +1,5 @@
 - name: configure firewalld
-  firewalld:
+  ansible.posix.firewalld:
     port: 9101-9103/tcp
     permanent: yes
     state: enabled

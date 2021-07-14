@@ -17,6 +17,7 @@ readme: README.md
 # @nicks:irc/im.site#channel'
 authors:
 - Ana Machado <info@baculasystems.com>
+- Bill Arlofski <info@baculasystems.com>
 
 
 ### OPTIONAL but strongly recommended
@@ -25,8 +26,7 @@ description: An Ansible Collection of roles to install Bacula Community - Postgr
 
 # Either a single license or a list of licenses for content inside of a collection. Ansible Galaxy currently only
 # accepts L(SPDX,https://spdx.org/licenses/) licenses. This key is mutually exclusive with 'license_file'
-license:
-- Copyright (C) 2000-2020 Kern Sibbald / License: BSD 2-Clause; see file LICENSE
+# license:
 
 # The path to the license file for the collection. This path is relative to the root of the collection. This key is
 # mutually exclusive with 'license'
@@ -35,7 +35,7 @@ license_file:
 
 # A list of tags you want to associate with the collection for indexing/searching. A tag name has the same character
 # requirements as 'namespace' and 'name'
-tags: [baculasystems, bacula_community]
+tags: [baculasystems, bacula_community, bacula]
 
 # Collections that this collection requires to be installed for it to be usable. The key of the dict is the
 # collection label 'namespace.name'. The value is a version range
@@ -47,7 +47,7 @@ dependencies: { "ansible.posix": ">=1.1.1" }
 repository: https://github.com/Bacula-Systems/ansible-collection-bacula-community
 
 # The URL to any online docs
-# documentation: http://docs.baculasystems.com
+documentation: httpis://www.bacula.org
 
 # The URL to the homepage of the collection/project
 homepage: http://www.baculasystems.com
@@ -60,4 +60,3 @@ homepage: http://www.baculasystems.com
 # uses 'fnmatch' to match the files or directories. Some directories and files like 'galaxy.yml', '*.pyc', '*.retry',
 # and '.git' are always filtered
 build_ignore: []
-

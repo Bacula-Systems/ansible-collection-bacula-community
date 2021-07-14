@@ -22,6 +22,8 @@ remote_tmp = ~/.ansible/tmp
 
 Bacula Systems strongly recommends having a fully patched system before installing any Bacula component. This being the case, all the roles are written to automatically trigger the Linux distribution's update/upgrade process (eg: apt update; apt upgrade in Debian/Ubuntu) prior to deploying any of the Bacula components.
 
+Some roles have a `templates` directory with Clients, Jobs and Filesets that will be deployed when using the roles. We strongly recommend that you adapt these templates to your environment before deploying Clients and Plugins.
+
 ## Installing the Collection
 
 Before using the Bacula Community collection, it must be installed with the Ansible Galaxy command:
@@ -42,9 +44,9 @@ bce-sdonly | Install a Bacula Storage. This role follows the recommended procedu
 
 The roles have most of the variables defined in the `vars` directories or in the `default/main.yml` files.
 
-Please set your Bacula Community subscription's repository URL (download area), the `dl_area` variable, in the `default/main.yml` file for each role prior to using them.
+Please set your Bacula Community subscription's repository URL (download area), the `repository_code` variable, in the `default/main.yml` file for each role prior to using them.
 
-You may use the following command to set all `dl_area` values at once:
+You may use the following command to set all `repository_code` values at once:
 
 > find /root/.ansible/collections/ansible_collections/baculasystems/bacula_community/roles/ -name main.yml -exec sed -i 's/@@repository_code@/<your_repository_string>/g' {} \\;
 
@@ -67,7 +69,7 @@ volumes_directory | this variable will be required when using the `bce-sdonly` r
 
 The following examples use the playbooks in the `tests` directory of the Bacula Community collection.
 
-1) To deploy Bacula Community version (DIR, SD, and FD) `11.0.5` on a host with the FQDN `baculadir.example.com` using the --extra_vars command line option, and the `bce.yml` playbook:
+1) To deploy Bacula Community version (DIR, SD, and FD) `11.0.5`, using a PostgreSQL Catalog, on a host with the FQDN `baculadir.example.com` using the --extra_vars command line option, and the `bce.yml` playbook:
 
 > ansible-playbook -i baculadir.example.com, tests/bce.yml --extra-vars "director_hostname=baculadir.example.com bce_version=11.0.5"
 

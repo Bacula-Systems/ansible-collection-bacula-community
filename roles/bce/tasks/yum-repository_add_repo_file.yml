@@ -9,7 +9,7 @@
     name: "{{ repo_name }}"
     file: "{{ repo_filename }}"
     description: "{{ description }}"
-    baseurl: "{{ dl_area }}/rpms/{{ bce_version }}/{{ rhel_version }}/{{ architecture }}/"
+    baseurl: "{{ dl_area }}/rpms/{{ bce_version }}/{{ rhel_version }}/"
     enabled: "{{ enabled }}"
     protect: "{{ protect }}"
     gpgcheck: "{{ gpgcheck }}"

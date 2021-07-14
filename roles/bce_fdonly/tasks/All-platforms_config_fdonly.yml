@@ -15,8 +15,8 @@
     path: "{{ directories }}"
     state: directory
     mode: '0770'
-    owner: bacula
-    group: bacula
+    owner: root
+    group: root
   loop:
     - /opt/bacula/etc/ansible.conf.d
     - /opt/bacula/etc/ansible.conf.d/client
@@ -35,8 +35,8 @@
   template:
     src: "director_conf_in_bacula_fd.j2"
     dest: "/opt/bacula/etc/ansible.conf.d/client/{{ director_name }}.conf"
-    owner: bacula
-    group: bacula
+    owner: root
+    group: root
     mode: '0660'
 
 - name: include the line to include the Director configuration in the ansible.conf.d directory in the bacula-fd.conf file

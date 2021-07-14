@@ -22,7 +22,7 @@ remote_tmp = ~/.ansible/tmp
 
 Bacula Systems strongly recommends having a fully patched system before installing any Bacula component. This being the case, all the roles are written to automatically trigger the Linux distribution's update/upgrade process (eg: apt update; apt upgrade in Debian/Ubuntu) prior to deploying any of the Bacula components.
 
-Some roles have a `templates` directory with Clients, Jobs and Filesets that will be deployed when using the roles. We strongly recommend that you adapt these templates to your environment before deploying Clients and Plugins.
+Some roles have a `templates` directory with Clients and Autochangers that will be deployed when using the roles. We strongly recommend that you adapt these templates to your environment before deploying Clients and Storages.
 
 ## Installing the Collection
 

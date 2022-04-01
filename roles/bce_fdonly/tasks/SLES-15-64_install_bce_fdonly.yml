@@ -1,8 +1,8 @@
 ---
-    - include: zypper-repository_add_repo_file.yml
-    - include: zypper_install_bce_fdonly.yml
-    - include: systemd_start_fd.yml
-    - include: All-platforms_config_fdonly.yml
-    - include: sles_config_firewalld.yml
-    - include: systemd_restart_fd.yml
-    - include: zypper_list_packages_build.yml
+    - include_tasks: zypper-repository_add_repo_file.yml
+    - include_tasks: zypper_install_bce_fdonly.yml
+    - include_tasks: systemd_start_fd.yml
+    - include_tasks: All-platforms_config_fdonly.yml
+    - include_tasks: sles_config_firewalld.yml
+    - include_tasks: systemd_restart_fd.yml
+    - include_tasks: zypper_list_packages_build.yml

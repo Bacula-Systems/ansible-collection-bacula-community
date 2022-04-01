@@ -16,7 +16,7 @@
       when: client_name is not defined
 
     - name: Include Bacula Community File Daemon only Installation file
-      include: "{{ item }}"
+      include_tasks: "{{ item }}"
       vars:
         params:
           files:

@@ -6,7 +6,7 @@
       failed_when: result.status != 200
 
     - name: Include Bacula Community Version Installation file
-      include: "{{ item }}"
+      include_tasks: "{{ item }}"
       vars:
         params:
           files:

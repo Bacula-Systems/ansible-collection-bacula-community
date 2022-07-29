@@ -1,0 +1,9 @@
+---
+    - include_tasks: rpm-key_install_bce_keys.yml
+    - include_tasks: yum-repository_add_repo_file.yml
+    - include_tasks: yum_install_bce_fdonly.yml
+    - include_tasks: systemd_start_fd.yml
+    - include_tasks: All-platforms_config_fdonly.yml
+    - include_tasks: systemd_config_firewalld.yml 
+    - include_tasks: systemd_restart_fd.yml
+    - include_tasks: yum_list_packages_build.yml

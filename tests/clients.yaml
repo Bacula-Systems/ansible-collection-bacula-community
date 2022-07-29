@@ -6,5 +6,5 @@ clients:
     client2.example.com:
       client_hostname: client2.example.com
   vars:
-    bce_version: 11.0.5
+    bce_version: 13.0.0
     director_hostname: baculadir.example.com

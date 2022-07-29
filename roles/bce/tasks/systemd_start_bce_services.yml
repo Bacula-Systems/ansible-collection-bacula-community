@@ -17,7 +17,7 @@
     name: bacula-fd
     state: started
   register: fd_started
-- debug: msg="Director hadn't started automatically! For Debian/Ubuntu, Bacula daemons should start automatically. For CentOS/RedHat, Bacula Daemons must be started manually."
+- debug: msg="File Daemon hadn't started automatically! For Debian/Ubuntu, Bacula daemons should start automatically. For CentOS/RedHat, Bacula Daemons must be started manually."
   when: fd_started.changed == true
 - debug: msg="File Daemon started automatically as expected."
   when: fd_started.changed == false
@@ -31,7 +31,7 @@
     name: bacula-sd
     state: started
   register: sd_started
-- debug: msg="Director hadn't started automatically! For Debian/Ubuntu, Bacula daemons should start automatically. For CentOS/RedHat, Bacula Daemons must be started manually."
+- debug: msg="Storage Daemon hadn't started automatically! For Debian/Ubuntu, Bacula daemons should start automatically. For CentOS/RedHat, Bacula Daemons must be started manually."
   when: sd_started.changed == true
 - debug: msg="Storage Daemon started automatically as expected."
   when: sd_started.changed == false

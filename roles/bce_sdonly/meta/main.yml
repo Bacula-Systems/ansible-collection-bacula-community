@@ -1,0 +1,10 @@
+---
+galaxy_info:
+  role_name: bce_sdonly
+  author: Ana Machado, Bill Arlofski
+  description: this role will install a Storage Daemon in one or more hosts.
+  company: Bacula Systems SA
+  license: BSD 2-Clause
+  min_ansible_version: 2.9
+  galaxy_tags: []
+dependencies: []

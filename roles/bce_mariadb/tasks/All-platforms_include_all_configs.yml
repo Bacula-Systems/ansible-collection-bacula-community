@@ -1,3 +1,4 @@
+---
 - name: create ansible.conf.d directory
   file:
     path: /opt/bacula/etc/ansible.conf.d/director
@@ -32,7 +33,7 @@
     insertafter: EOF
     block: |
       @|"sh -c 'for f in /opt/bacula/etc/ansible.conf.d/director/*.conf ; do echo @${f} ; done'"
-- name: include the line to include all configuration files in the ansible.conf.d/storage directory in the bacula-sd.conf file
+- name: include all configuration files in the ansible.conf.d/storage directory in the bacula-sd.conf file
   blockinfile:
     path: /opt/bacula/etc/bacula-sd.conf
     insertafter: EOF

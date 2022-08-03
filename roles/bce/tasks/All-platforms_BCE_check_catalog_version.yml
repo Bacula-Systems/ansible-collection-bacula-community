@@ -1,3 +1,4 @@
+---
 - name: check Catalog version
   shell: (echo sqlquery; echo "select * from version;") | /opt/bacula/bin/bconsole
   register: catalog_version

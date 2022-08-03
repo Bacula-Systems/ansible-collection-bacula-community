@@ -1,5 +1,6 @@
+---
 repo_filename: Bacula-Community
 description: Bacula Community Version repository
 sles_version: sles125
 architecture: 64
-auto_import_keys: yes
+auto_import_keys: true

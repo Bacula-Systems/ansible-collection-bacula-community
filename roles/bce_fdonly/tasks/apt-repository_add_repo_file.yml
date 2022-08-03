@@ -1,3 +1,4 @@
+---
 - name: gather variables
   include_vars: "{{ repo_item }}"
   with_first_found:
@@ -10,14 +11,14 @@
     filename: "{{ repo_filename }}"
     codename: "{{ codename }}"
     state: present
-    update_cache: no
+    update_cache: false
 # we do the cache update after adding the repository to get better the error
 - name: update repositories cache
   apt:
-    update_cache: yes
-    allow_unauthenticated: no
+    update_cache: true
+    allow_unauthenticated: false
   register: apt_update_result
-- debug:  msg="{{ apt_update_result.stdout.split('\n') }}"
+- debug: msg="{{ apt_update_result.stdout.split('\n') }}"
   when: apt_update_result.stdout is defined
-- debug:  msg="{{ apt_update_result.stderr.split('\n') }}"
+- debug: msg="{{ apt_update_result.stderr.split('\n') }}"
   when: apt_update_result.stderr is defined

@@ -1,7 +1,7 @@
+---
 repo_name: Bacula-Community
 repo_filename: Bacula-Community
 description: Bacula Community repository
-rhel_version: el9
 rhel_version: el9
 architecture: x86_64
 enabled: 1

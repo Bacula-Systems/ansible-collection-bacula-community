@@ -1,3 +1,4 @@
+---
 - name: check director status
   shell: echo "status director" | /opt/bacula/bin/bconsole
   register: dir_status

@@ -1,23 +1,26 @@
+---
 - name: fail following tasks if director_hostname is not defined
-  fail: msg="director_hostname not provided, skipping remote Director configuration."
+  fail: msg="director_hostname not provided,\
+              skipping remote Director configuration."
   when: director_hostname is not defined
 
-- name: get the Storage Daemon password used to communicate with Director in the bacula-sd.conf file
-  shell: "grep ^[[:space:]]*Password -m 1 /opt/bacula/etc/bacula-sd.conf | tr -d ' ' | tr -d '\"' | cut -d \"=\" -f2"
+- name: get the Storage Daemon password for Director in the bacula-sd.conf file
+  shell: "grep ^[[:space:]]*Password -m 1 /opt/bacula/etc/bacula-sd.conf\
+           | tr -d ' ' | tr -d '\"' | cut -d \"=\" -f2"
   register: current_sd_password
 
 - name: set the dir_sd_password
   set_fact:
     dir_sd_password: "{{ current_sd_password.stdout }}"
 
-- name: create ansible.conf.di, ansible.conf.d/director and ansible.conf.d/director/storages directories, if they don't exist
+- name: create ansible.conf.d directories, if they don't exist
   file:
     path: "{{ directories }}"
     state: directory
     mode: '0770'
     owner: bacula
     group: bacula
-  loop: 
+  loop:
     - /opt/bacula/etc/ansible.conf.d
     - /opt/bacula/etc/ansible.conf.d/director
     - /opt/bacula/etc/ansible.conf.d/director/storages
@@ -25,20 +28,22 @@
     loop_var: directories
   delegate_to: "{{ director_hostname }}"
 
-- name: generate the autochanger resource definition to be included in the bacula-dir.conf file
+- name: generate the autochanger resource to be included in the bacula-dir.conf
   template:
     src: "autochanger_conf_in_bacula_dir.j2"
-    dest: "/opt/bacula/etc/ansible.conf.d/director/storages/{{ storage_name }}-autochanger.conf"
+    dest: "/opt/bacula/etc/ansible.conf.d/director/storages/\
+           {{ storage_name }}-autochanger.conf"
     owner: bacula
     group: bacula
     mode: '0660'
   delegate_to: "{{ director_hostname }}"
 
-- name: include the line to include the Autochanger configuration in the ansible.conf.d directory in the bacula-dir.conf file
+- name: include the Autochanger configuration line in the bacula-dir.conf file
   blockinfile:
     path: /opt/bacula/etc/bacula-dir.conf
     insertafter: EOF
-    marker: "# {mark} ANSIBLE MANAGED BLOCK - Autochanger - {{ storage_name }} in the bacula-dir.conf file"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - Autochanger - \
+             {{ storage_name }} in the bacula-dir.conf file"
     block: |
       @/opt/bacula/etc/ansible.conf.d/director/storages/{{ storage_name }}-autochanger.conf
   delegate_to: "{{ director_hostname }}"
@@ -47,18 +52,19 @@
   shell: echo "reload" | /opt/bacula/bin/bconsole
   register: reload_result
   delegate_to: "{{ director_hostname }}"
-- debug:  msg="{{ reload_result.stdout.split('\n') }}"
-- debug:  msg="{{ reload_result.stderr.split('\n') }}"
+- debug: msg="{{ reload_result.stdout.split('\n') }}"
+- debug: msg="{{ reload_result.stderr.split('\n') }}"
 
 - name: status storage in Director
-  shell: echo "status storage={{ storage_name }}-autochanger" | /opt/bacula/bin/bconsole
+  shell: "echo \"status storage={{ storage_name }}-autochanger\"
+           | /opt/bacula/bin/bconsole"
   register: status_result
   delegate_to: "{{ director_hostname }}"
-- debug:  msg="{{ status_result.stdout.split('\n') }}"
-- debug:  msg="{{ status_result.stderr.split('\n') }}"
+- debug: msg="{{ status_result.stdout.split('\n') }}"
+- debug: msg="{{ status_result.stderr.split('\n') }}"
 
 - name: display any message in bconsole
   shell: echo "messages" | /opt/bacula/bin/bconsole
   register: status_messages
   delegate_to: "{{ director_hostname }}"
-- debug:  msg="{{ status_messages.stdout.split('\n') }}"
+- debug: msg="{{ status_messages.stdout.split('\n') }}"

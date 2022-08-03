@@ -1,9 +1,10 @@
+---
 - name: restart bacula-dir service
   service:
     name: bacula-dir
     state: restarted
   register: bacula_dir_status
-  ignore_errors: yes
+  ignore_errors: true
 - debug: msg="{{ bacula_dir_status.name }} status is {{ bacula_dir_status.state }}."
   when: bacula_dir_status.name is defined
 - name: restart bacula-fd service
@@ -11,7 +12,7 @@
     name: bacula-fd
     state: restarted
   register: bacula_fd_status
-  ignore_errors: yes
+  ignore_errors: true
 - debug: msg="{{ bacula_fd_status.name }} status is {{ bacula_fd_status.state }}."
   when: bacula_fd_status.name is defined
 - name: restart bacula-sd service
@@ -19,6 +20,6 @@
     name: bacula-sd
     state: restarted
   register: bacula_sd_status
-  ignore_errors: yes
+  ignore_errors: true
 - debug: msg="{{ bacula_sd_status.name }} status is {{ bacula_sd_status.state }}."
   when: bacula_sd_status.name is defined

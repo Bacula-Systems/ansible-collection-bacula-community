@@ -1,11 +1,12 @@
+---
 - name: update repositories cache
   apt:
-    update_cache: yes
+    update_cache: true
 - name: install additional packages for Debian/Ubuntu
   apt:
     name: "{{ package_item.1 }}"
     state: latest
-    force: yes
+    force: true
   when: "package_item.0.os_distribution == ansible_distribution"
   loop_control:
     loop_var: package_item

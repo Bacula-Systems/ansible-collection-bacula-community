@@ -1,3 +1,4 @@
+---
 - name: create ansible.conf.d directory
   file:
     path: /opt/bacula/etc/ansible.conf.d/director

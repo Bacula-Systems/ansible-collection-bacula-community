@@ -1,3 +1,4 @@
+---
 - name: install postgresql-server
   zypper:
     name: postgresql-server

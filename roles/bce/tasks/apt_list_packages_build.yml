@@ -1,3 +1,4 @@
+---
 - name: get the list of bacula community packages
   shell: "apt list --installed | grep bacula-postgresql"
   register: deb_packages

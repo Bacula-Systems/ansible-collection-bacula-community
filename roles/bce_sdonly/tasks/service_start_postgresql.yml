@@ -1,4 +1,5 @@
-- name: Check if PostgreSQL database is initialized - check if PG_VERSION directory exists
+---
+- name: Check if PostgreSQL database is initialized (PG_VERSION dir exists)
   stat:
     path: "{{ result_pgdata_directory.stdout }}/PG_VERSION"
   register: result_PGDATA

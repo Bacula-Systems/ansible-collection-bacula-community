@@ -1,3 +1,4 @@
+---
 - name: get the temporary root password
   shell: "grep password /var/log/mysqld.log | awk '{ print $NF }'"
   register: root_temporary_password

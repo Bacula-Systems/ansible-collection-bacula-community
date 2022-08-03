@@ -1,33 +1,34 @@
+---
 - name: restart bacula-dir service
   systemd:
     name: bacula-dir
     state: restarted
-  ignore_errors: yes
+  ignore_errors: true
 - name: bacula-dir service status
   shell: "systemctl status bacula-dir"
   register: bacula_dir_status
-  ignore_errors: yes
-- debug:  msg="{{ bacula_dir_status.stdout.split('\n') }}"
-- debug:  msg="{{ bacula_dir_status.stderr.split('\n') }}"
+  ignore_errors: true
+- debug: msg="{{ bacula_dir_status.stdout.split('\n') }}"
+- debug: msg="{{ bacula_dir_status.stderr.split('\n') }}"
 - name: restart bacula-fd service
   systemd:
     name: bacula-fd
     state: restarted
-  ignore_errors: yes
+  ignore_errors: true
 - name: bacula-fd service status
   shell: "systemctl status bacula-fd"
   register: bacula_fd_status
-  ignore_errors: yes
-- debug:  msg="{{ bacula_fd_status.stdout.split('\n') }}"
-- debug:  msg="{{ bacula_fd_status.stderr.split('\n') }}"
+  ignore_errors: true
+- debug: msg="{{ bacula_fd_status.stdout.split('\n') }}"
+- debug: msg="{{ bacula_fd_status.stderr.split('\n') }}"
 - name: restart bacula-sd service
   systemd:
     name: bacula-sd
     state: restarted
-  ignore_errors: yes
+  ignore_errors: true
 - name: bacula-sd service status
   shell: "systemctl status bacula-sd"
   register: bacula_sd_status
-  ignore_errors: yes
-- debug:  msg="{{ bacula_sd_status.stdout.split('\n') }}"
-- debug:  msg="{{ bacula_sd_status.stderr.split('\n') }}"
+  ignore_errors: true
+- debug: msg="{{ bacula_sd_status.stdout.split('\n') }}"
+- debug: msg="{{ bacula_sd_status.stderr.split('\n') }}"

@@ -1,6 +1,7 @@
+---
 repo_filename: Bacula-Community
 description: Bacula Community Version repository
 sles_version: sles114
 architecture: 64
-auto_import_keys: yes
-disable_gpg_check: yes
+auto_import_keys: true
+disable_gpg_check: true

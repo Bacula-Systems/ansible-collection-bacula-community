@@ -1,14 +1,15 @@
+---
 - name: update repositories cache
   apt:
-    update_cache: yes
+    update_cache: true
 - name: install additional packages
   apt:
     name: "{{ packages }}"
     state: latest
   vars:
     packages:
-    - apt-transport-https
-    - sudo
-    - openssl
-    - ca-certificates
-    - gnupg
+      - apt-transport-https
+      - sudo
+      - openssl
+      - ca-certificates
+      - gnupg

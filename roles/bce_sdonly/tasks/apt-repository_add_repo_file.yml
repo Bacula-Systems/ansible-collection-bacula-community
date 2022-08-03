@@ -1,23 +1,26 @@
+---
 - name: gather variables
   include_vars: "{{ repo_item }}"
   with_first_found:
-  - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}-{{ansible_userspace_bits}}-repo.yml"
+    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}-\
+       {{ansible_userspace_bits}}-repo.yml"
   loop_control:
     loop_var: repo_item
 - name: Add BCE APT repository
   apt_repository:
-    repo: "deb {{ dl_area }}/debs/{{ bce_version }}/{{ codename }}/{{ architecture }}/ {{ codename }} main"
+    repo: "deb {{ dl_area }}/debs/{{ bce_version }}/{{ codename }}/\
+           {{ architecture }}/ {{ codename }} main"
     filename: "{{ repo_filename }}"
     codename: "{{ codename }}"
     state: present
-    update_cache: no
+    update_cache: false
 # we do the cache update after adding the repository to get better the error
 - name: update repositories cache
   apt:
-    update_cache: yes
-    allow_unauthenticated: no
+    update_cache: true
+    allow_unauthenticated: false
   register: apt_update_result
-- debug:  msg="{{ apt_update_result.stdout.split('\n') }}"
+- debug: msg="{{ apt_update_result.stdout.split('\n') }}"
   when: apt_update_result.stdout is defined
-- debug:  msg="{{ apt_update_result.stderr.split('\n') }}"
+- debug: msg="{{ apt_update_result.stderr.split('\n') }}"
   when: apt_update_result.stderr is defined

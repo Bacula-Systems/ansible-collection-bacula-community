@@ -1,8 +1,11 @@
+---
 - name: restart bacula-fd service
   systemd:
     name: bacula-fd
     state: restarted
   register: bacula_fd_status
-  ignore_errors: yes
-- debug: msg="{{ bacula_fd_status.name }} status is {{ bacula_fd_status.state }}, PID is {{ bacula_fd_status.status.ExecMainPID }}.\n \
-         PID is {{ bacula_fd_status.status.ExecMainPID }}, ExecMainStatus is {{ bacula_fd_status.status.ExecMainStatus }}."
+  ignore_errors: true
+- debug: msg="{{ bacula_fd_status.name }} status is {{ bacula_fd_status.state }}, \
+              PID is {{ bacula_fd_status.status.ExecMainPID }}.\n \
+              PID is {{ bacula_fd_status.status.ExecMainPID }}, ExecMainStatus is \
+              {{ bacula_fd_status.status.ExecMainStatus }}."

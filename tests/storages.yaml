@@ -1,9 +1,9 @@
 ---
 storages:
   hosts:
-    storage1.example.com
+    storage1.example.com:
       storage_hostname: storage1.example.com
-    storage2.example.com
+    storage2.example.com:
       storage_hostname: storage2.example.com
   vars:
     director_hostname: baculadir.example.com

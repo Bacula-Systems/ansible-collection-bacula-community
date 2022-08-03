@@ -1,3 +1,4 @@
+---
 - name: check client status
   shell: echo "status client" | /opt/bacula/bin/bconsole
   register: fd_status

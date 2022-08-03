@@ -1,6 +1,7 @@
+---
 - name: Check if PostgreSQL database is initialized - check PGDATA is set
   shell: "sudo -Hiu postgres -- env | grep PGDATA"
-  register: result_pgdata_set 
+  register: result_pgdata_set
 - name: get PGDATA environment variable value for postgres user
   shell: "sudo -Hiu postgres bash -c 'echo $PGDATA'"
   register: result_pgdata_directory
@@ -16,4 +17,4 @@
 - name: set the PostgreSQL database to auto-start at boot
   systemd:
     name: postgresql
-    enabled: yes
+    enabled: true

@@ -1,3 +1,4 @@
+---
 - name: gather variables
   include_vars: "{{ repo_item }}"
   with_first_found:

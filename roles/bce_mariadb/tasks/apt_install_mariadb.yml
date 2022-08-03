@@ -1,8 +1,9 @@
+---
 - name: install mariadb-server
   apt:
     name: "{{ packages }}"
-    update-cache: yes
+    update-cache: true
     state: present
   vars:
     packages:
-    - mariadb-server
+      - mariadb-server

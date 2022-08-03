@@ -1,9 +1,10 @@
+---
 - name: Modify the Client name, if defined
   ansible.builtin.replace:
     path: /opt/bacula/etc/bacula-fd.conf
     after: 'FileDaemon {'
     regexp: "{{ client_hostname.split('.')[0] }}-fd"
-    replace: "{{ client_name }}"  
+    replace: "{{ client_name }}"
   when: client_name is defined
 
 - name: fail following tasks if director_hostname is not defined
@@ -39,7 +40,7 @@
     group: root
     mode: '0660'
 
-- name: include the line to include the Director configuration in the ansible.conf.d directory in the bacula-fd.conf file
+- name: include the Director configuration in the ansible.conf.d directory in the bacula-fd.conf file
   blockinfile:
     path: /opt/bacula/etc/bacula-fd.conf
     insertafter: EOF

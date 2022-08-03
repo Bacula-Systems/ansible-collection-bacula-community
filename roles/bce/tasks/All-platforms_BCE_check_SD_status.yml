@@ -1,3 +1,4 @@
+---
 - name: check storage status
   shell: echo "status storage" | /opt/bacula/bin/bconsole
   register: sd_status

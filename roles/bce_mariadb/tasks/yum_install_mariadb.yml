@@ -1,3 +1,4 @@
+---
 - name: install mariadb-server
   yum:
     name: mariadb-server

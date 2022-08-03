@@ -1,4 +1,5 @@
-- name: Collect PostgreSQL version 
+---
+- name: Collect PostgreSQL version
   shell: mysql --version
   register: mysql_version
 - debug: msg="{{ mysql_version.stdout }}"

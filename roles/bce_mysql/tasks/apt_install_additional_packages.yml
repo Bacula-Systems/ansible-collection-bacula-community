@@ -1,11 +1,12 @@
+---
 - name: update repositories cache
   apt:
-    update_cache: yes
+    update_cache: true
 - name: install additional packages for Debian/Ubuntu
   apt:
     name: "{{ item.1 }}"
     state: latest
-    force: yes
+    force: true
   when: "item.0.os_distribution == ansible_distribution"
   with_subelements:
     - "{{ bce_additional_packages }}"

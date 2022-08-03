@@ -1,3 +1,4 @@
+---
 - name: create volumes directory
   file:
     path: "{{ volumes_directory }}"
@@ -13,7 +14,7 @@
     mode: '0770'
     owner: bacula
     group: bacula
-  loop: 
+  loop:
     - /opt/bacula/etc/ansible.conf.d
     - /opt/bacula/etc/ansible.conf.d/storage
   loop_control:
@@ -35,7 +36,7 @@
     group: bacula
     mode: '0660'
 
-- name: include the line to include the Autochanger configuration in the ansible.conf.d directory in the bacula-sd.conf file
+- name: include the Autochanger configuration in the ansible.conf.d directory in the bacula-sd.conf file
   blockinfile:
     path: /opt/bacula/etc/bacula-sd.conf
     insertafter: EOF
@@ -71,7 +72,7 @@
     group: bacula
     mode: '0660'
 
-- name: include the line to include the Director configuration in the ansible.conf.d directory in the bacula-sd.conf file
+- name: include the Director configuration in the ansible.conf.d directory in the bacula-sd.conf file
   blockinfile:
     path: /opt/bacula/etc/bacula-sd.conf
     insertafter: EOF

@@ -1,6 +1,7 @@
+---
 - name: create Bacula catalog database
   shell: "/opt/bacula/scripts/create_mysql_database"
 - name: make Bacula catalog tables
   shell: "/opt/bacula/scripts/make_mysql_tables"
-- name: grant Bacula catalog privileges 
+- name: grant Bacula catalog privileges
   shell: "/opt/bacula/scripts/grant_mysql_privileges"

@@ -1,15 +1,16 @@
 ---
-    - name: Check if dl_area is correctly defined and it can be reached
-      uri:
-        url: "{{ dl_area }}"
-      register: result
-      failed_when: result.status != 200
+- name: Check if dl_area is correctly defined and it can be reached
+  uri:
+    url: "{{ dl_area }}"
+  register: result
+  failed_when: result.status != 200
 
-    - name: Include Bacula Community Version Installation file
-      include_tasks: "{{ item }}"
-      vars:
-        params:
-          files:
-            - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}-{{ansible_userspace_bits}}_install_bce.yml"
-            - "{{ ansible_distribution }}-{{ ansible_distribution_version }}-{{ansible_userspace_bits}}_install_bce.yml"
-      loop: "{{ query('first_found', params) }}"
+- name: Include Bacula Community Version Installation file
+  include_tasks: "{{ item }}"
+  vars:
+    params:
+      files:
+        - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}-\
+           {{ansible_userspace_bits}}_install_bce.yml"
+        - "{{ ansible_distribution }}-{{ ansible_distribution_version }}-{{ansible_userspace_bits}}_install_bce.yml"
+  loop: "{{ query('first_found', params) }}"

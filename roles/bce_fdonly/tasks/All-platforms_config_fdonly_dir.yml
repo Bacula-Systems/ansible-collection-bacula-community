@@ -1,8 +1,9 @@
+---
 - name: fail following tasks if director_hostname is not defined
   fail: msg="director_hostname not provided, skipping remote Director configuration."
   when: director_hostname is not defined
 
-- name: create ansible.conf.d, ansible.conf.d/director and ansible.conf.d/director/clients directories, if they don't exist
+- name: create ansible.conf.dand ansible.conf.d/director/clients directories, if they don't exist
   file:
     path: "{{ directories }}"
     state: directory
@@ -18,7 +19,8 @@
   delegate_to: "{{ director_hostname }}"
 
 - name: get the Catalog name used by the Director
-  shell: "grep -r 'Catalog {' /opt/bacula/etc -A 1 -m 1 | grep Name | head -1 | tr -d ' ' | tr -d '\"' | cut -d \"=\" -f2"
+  shell: "grep -r 'Catalog {' /opt/bacula/etc -A 1 -m 1 | grep Name | head -1 | tr -d ' ' |\
+          tr -d '\"' | cut -d \"=\" -f2"
   register: catalog_name
   delegate_to: "{{ director_hostname }}"
 
@@ -27,8 +29,10 @@
     catalog_name: "{{ catalog_name.stdout }}"
   delegate_to: "{{ director_hostname }}"
 
-- name: get the JobDefs resource name used in the configuration files (DefaultJob until 12.2.4 version, BackupsToDisk from 12.4 version)
-  shell: "grep -r 'JobDefs {' /opt/bacula/etc -A 1 -m 1 | grep Name | head -1 | tr -d ' ' | tr -d '\"' | cut -d \"=\" -f2"
+# (DefaultJob until 12.2.4 version, BackupsToDisk from 12.4 version)
+- name: get the JobDefs resource name used in the configuration files
+  shell: "grep -r 'JobDefs {' /opt/bacula/etc -A 1 -m 1 | grep Name | head -1 | tr -d ' ' |\
+          tr -d '\"' | cut -d \"=\" -f2"
   register: jobdefs_name
   delegate_to: "{{ director_hostname }}"
 
@@ -41,7 +45,7 @@
     mode: '0660'
   delegate_to: "{{ director_hostname }}"
 
-- name: include the line to include the client configuration files in the ansible.conf.d directory in the bacula-dir.conf file
+- name: include the client configuration files in the ansible.conf.d directory in the bacula-dir.conf file
   blockinfile:
     path: /opt/bacula/etc/bacula-dir.conf
     insertafter: EOF
@@ -54,12 +58,12 @@
   shell: echo "reload" | /opt/bacula/bin/bconsole
   register: reload_result
   delegate_to: "{{ director_hostname }}"
-- debug:  msg="{{ reload_result.stdout.split('\n') }}"
-- debug:  msg="{{ reload_result.stderr.split('\n') }}"
+- debug: msg="{{ reload_result.stdout.split('\n') }}"
+- debug: msg="{{ reload_result.stderr.split('\n') }}"
 
 - name: status client in Director
   shell: echo "status client={{ client_name }}" | /opt/bacula/bin/bconsole
   register: status_result
   delegate_to: "{{ director_hostname }}"
-- debug:  msg="{{ status_result.stdout.split('\n') }}"
-- debug:  msg="{{ status_result.stderr.split('\n') }}"
+- debug: msg="{{ status_result.stdout.split('\n') }}"
+- debug: msg="{{ status_result.stderr.split('\n') }}"

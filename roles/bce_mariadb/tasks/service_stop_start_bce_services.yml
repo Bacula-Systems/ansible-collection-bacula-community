@@ -1,3 +1,4 @@
+---
 - name: stop bacula-dir service
   service:
     name: bacula-dir
@@ -22,7 +23,7 @@
     state: started
   register: bacula_fd_status
 - debug: msg="{{ bacula_fd_status.name }} status is {{ bacula_fd_status.state }}."
-- name: stop bacula-sd service 
+- name: stop bacula-sd service
   service:
     name: bacula-sd
     state: stopped

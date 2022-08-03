@@ -1,7 +1,7 @@
 ---
-    - include_tasks: zypper-repository_add_repo_file.yml
-    - include_tasks: zypper_install_bce_fdonly.yml
-    - include_tasks: systemd_start_fd.yml
-    - include_tasks: All-platforms_config_fdonly.yml
-    - include_tasks: systemd_restart_fd.yml
-    - include_tasks: zypper_list_packages_build.yml
+- include_tasks: zypper-repository_add_repo_file.yml
+- include_tasks: zypper_install_bce_fdonly.yml
+- include_tasks: systemd_start_fd.yml
+- include_tasks: All-platforms_config_fdonly.yml
+- include_tasks: systemd_restart_fd.yml
+- include_tasks: zypper_list_packages_build.yml

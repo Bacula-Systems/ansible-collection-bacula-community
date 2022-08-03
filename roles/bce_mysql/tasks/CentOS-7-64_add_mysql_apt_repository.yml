@@ -1,4 +1,5 @@
-- name: Add MySQL REPO repository with check (md5). Currently version 8.15-1. If any error in this task, please check in https://dev.mysql.com/downloads/repo/yum/ if there is a new version and update the name of the rpm package in this task.
+---
+- name: Add MySQL yum repository with check (md5).
   yum:
     name: https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
     state: present

@@ -1,7 +1,8 @@
+---
 - name: restart bacula-fd service
   service:
     name: bacula-fd
     state: started
   register: bacula_fd_status
-  ignore_errors: yes
+  ignore_errors: true
 - debug: msg="{{ bacula_fd_status.name }} status is {{ bacula_fd_status.state }}."

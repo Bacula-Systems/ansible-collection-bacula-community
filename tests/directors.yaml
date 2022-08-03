@@ -1,24 +1,6 @@
 ---
 directors:
   hosts:
-    qa-debian11-64-bce-director-tst:
-      director_hostname: qa-debian11-64-bce-director-tst.supportlab.lan
-      bce_version: 13.0.0
-    qa-debian10-64-bce-director-tst:
-      director_hostname: qa-debian10-64-bce-director-tst.supportlab.lan
-      bce_version: 13.0.0
-    qa-ubuntu20-64-bce-director-tst:
-      director_hostname: qa-ubuntu20-64-bce-director-tst.supportlab.lan
-      bce_version: 13.0.0
-    qa-ubuntu18-64-bce-director-tst:
-      director_hostname: qa-ubuntu18-64-bce-director-tst.supportlab.lan
-      bce_version: 13.0.0
-    qa-centos8-64-bce-director-tst:
-      director_hostname: qa-centos8-64-bce-director-tst.supportlab.lan
-      bce_version: 13.0.0
-    qa-centos7-64-bce-director-tst:
-      director_hostname: qa-centos7-64-bce-director-tst.supportlab.lan
-      bce_version: 13.0.0
-    qa-rhel8-64-bce-director-tst:
-      director_hostname: qa-rhel8-64-bce-director-tst.supportlab.lan
+    baculadir.example.com:
+      director_hostname: baculadir.example.com
       bce_version: 13.0.0

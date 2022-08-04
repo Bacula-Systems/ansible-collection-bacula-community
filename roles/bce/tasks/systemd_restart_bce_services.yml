@@ -5,7 +5,7 @@
     state: restarted
   ignore_errors: true
 - name: bacula-dir service status
-  shell: "systemctl status bacula-dir"
+  command: "systemctl status bacula-dir"
   register: bacula_dir_status
   ignore_errors: true
 - debug: msg="{{ bacula_dir_status.stdout.split('\n') }}"
@@ -16,7 +16,7 @@
     state: restarted
   ignore_errors: true
 - name: bacula-fd service status
-  shell: "systemctl status bacula-fd"
+  command: "systemctl status bacula-fd"
   register: bacula_fd_status
   ignore_errors: true
 - debug: msg="{{ bacula_fd_status.stdout.split('\n') }}"
@@ -27,7 +27,7 @@
     state: restarted
   ignore_errors: true
 - name: bacula-sd service status
-  shell: "systemctl status bacula-sd"
+  command: "systemctl status bacula-sd"
   register: bacula_sd_status
   ignore_errors: true
 - debug: msg="{{ bacula_sd_status.stdout.split('\n') }}"

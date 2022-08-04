@@ -2,6 +2,7 @@
 - name: get the list of bacula community packages
   shell: "zypper packages --installed-only | grep bacula-postgresql"
   register: rpm_packages
+  changed_when: false
 - name: list bacula community packages builds
   debug:
     msg: "{{ rpm_packages.stdout_lines }}"

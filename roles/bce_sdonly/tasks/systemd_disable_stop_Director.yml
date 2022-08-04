@@ -5,7 +5,7 @@
     enabled: false
     state: stopped
 - name: check bacula-dir daemon status
-  shell: systemctl status bacula-dir
+  command: systemctl status bacula-dir
   register: bacula_dir_status
   ignore_errors: true
 - debug: msg="{{ bacula_dir_status.stdout.split('\n') }}"

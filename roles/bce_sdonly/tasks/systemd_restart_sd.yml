@@ -8,8 +8,9 @@
   wait_for:
     timeout: 10
 - name: check bacula-sd daemon status
-  shell: systemctl status bacula-sd
+  command: systemctl status bacula-sd
   register: bacula_sd_status
   ignore_errors: true
+  changed_when: false
 - debug: msg="{{ bacula_sd_status.stdout.split('\n') }}"
 - debug: msg="{{ bacula_sd_status.stderr.split('\n') }}"

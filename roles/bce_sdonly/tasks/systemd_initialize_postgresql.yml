@@ -6,11 +6,11 @@
   shell: "sudo -Hiu postgres bash -c 'echo $PGDATA'"
   register: result_pgdata_directory
   when: result_pgdata_set.rc == 0
-- name: Check if PostgreSQL database is initialized (PG_VERSION dir exists)
+- name: Check if PostgreSQL database is initialized
   stat:
     path: "{{ result_pgdata_directory.stdout }}/$PG_VERSION"
-  register: result_PGDATA
+  register: result_pgdata
   when: result_pgdata_directory.stdout != ""
 - name: initialize PostgreSQL database
-  shell: "postgresql-setup initdb"
-  when: not result_PGDATA.stat.exists
+  command: "postgresql-setup initdb"
+  when: not result_pgdata.stat.exists

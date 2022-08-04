@@ -10,7 +10,7 @@
 - debug: msg="Director started automatically as expected."
   when: dir_started.changed == false
 - name: bacula-dir service status
-  shell: "systemctl status bacula-dir"
+  command: "systemctl status bacula-dir"
   register: bacula_dir_status
 - debug: msg="{{ bacula_dir_status.stdout.split('\n') }}"
 - debug: msg="{{ bacula_dir_status.stderr.split('\n') }}"
@@ -25,7 +25,7 @@
 - debug: msg="File Daemon started automatically as expected."
   when: fd_started.changed == false
 - name: bacula-fd service status
-  shell: "systemctl status bacula-fd"
+  command: "systemctl status bacula-fd"
   register: bacula_fd_status
 - debug: msg="{{ bacula_fd_status.stdout.split('\n') }}"
 - debug: msg="{{ bacula_fd_status.stderr.split('\n') }}"
@@ -40,7 +40,7 @@
 - debug: msg="Storage Daemon started automatically as expected."
   when: sd_started.changed == false
 - name: bacula-sd service status
-  shell: "systemctl status bacula-sd"
+  command: "systemctl status bacula-sd"
   register: bacula_sd_status
 - debug: msg="{{ bacula_sd_status.stdout.split('\n') }}"
 - debug: msg="{{ bacula_sd_status.stderr.split('\n') }}"

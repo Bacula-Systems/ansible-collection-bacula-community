@@ -12,7 +12,7 @@
   register: result_PGDATA
   when: result_pgdata_directory.stdout != ""
 - name: initialize PostgreSQL database
-  shell: "service postgresql initdb"
+  command: "service postgresql initdb"
   when: not result_PGDATA.stat.exists
 - name: set the PostgreSQL database to auto-start at boot
   service:

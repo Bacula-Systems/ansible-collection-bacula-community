@@ -3,5 +3,5 @@
   remote_user: root
   tasks:
   - name: Install Bacula Community - MariaDB Catalog
-    import_role:
+    ansible.builtin.import_role:
       name: baculasystems.bacula_community.bce_mariadb

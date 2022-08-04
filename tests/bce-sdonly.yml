@@ -1,7 +1,6 @@
 ---
 - hosts: storages
   tasks:
-
   - name: Install and configure Bacula Storage Daemon only
-    import_role:
+    ansible.builtin.import_role:
       name: baculasystems.bacula_community.bce_sdonly

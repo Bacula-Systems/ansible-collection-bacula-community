@@ -5,6 +5,7 @@
 - include_tasks: apt-repository_add_repo_file.yml
 - include_tasks: apt_update_and_upgrade_packages.yml
 - include_tasks: apt_install_mysql.yml
+  when: install_mysql|default(false) == true
 - include_tasks: apt_install_bce.yml
 - include_tasks: apt_list_packages_build.yml
 - include_tasks: All-platforms_include_all_configs.yml

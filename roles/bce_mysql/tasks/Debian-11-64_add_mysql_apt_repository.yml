@@ -1,7 +1,0 @@
----
-- debug: msg="Add MySQL APT repository with check (md5). Currently version 8.23-1.\
-              If any error in this task, please check in https://dev.mysql.com/downloads/repo/apt/\
-              if there is a new version and update the name of the rpm package in this task."
-- name: Add MySQL APT repository with check (md5). Currently version 8.23-1.
-  apt:
-    deb: https://dev.mysql.com/get/mysql-apt-config_0.8.23-1_all.deb

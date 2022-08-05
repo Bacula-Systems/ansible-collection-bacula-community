@@ -2,8 +2,10 @@
 - include_tasks: yum_upgrade_packages.yml
 - include_tasks: rpm-key_install_bce_keys.yml
 - include_tasks: yum-repository_add_repo_file.yml
-- include_tasks: CentOS-7-64_add_mysql_apt_repository.yml
+- include_tasks: CentOS-7-64_add_mysql_yum_repository.yml
+  when: install_mysql|default(false) == true
 - include_tasks: yum_install_mysql.yml
+  when: install_mysql|default(false) == true
 - include_tasks: systemd_start_and_enable_mysqld.yml
 - include_tasks: yum_install_bce.yml
 - include_tasks: yum_list_packages_build.yml

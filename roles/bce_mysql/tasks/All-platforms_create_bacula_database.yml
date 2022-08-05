@@ -10,15 +10,17 @@
   when: mysql_root_password is not defined
 
 - name: create Bacula catalog database
-  shell: "MYSQL_PWD=\"{{ mysql_root_password }}\" /opt/bacula/scripts/create_mysql_database -u root"
+  shell: "MYSQL_PWD=\"{{ mysql_root_password }}\" /opt/bacula/scripts/create_mysql_database -u root --connect-expired-password"
   register: database_result
-  failed_when: database_result.stdout != 'Creation of bacula database succeeded.'
+  failed_when:
+    - '"Creation of bacula database succeeded." not in database_result.stdout'
 - debug: msg="{{ database_result.stdout }}"
 
 - name: make Bacula catalog tables
-  shell: "MYSQL_PWD=\"{{ mysql_root_password }}\" /opt/bacula/scripts/make_mysql_tables -u root"
+  shell: "MYSQL_PWD=\"{{ mysql_root_password }}\" /opt/bacula/scripts/make_mysql_tables -u root --connect-expired-password"
   register: tables_result
-  failed_when: tables_result.stdout != 'Creation of Bacula MySQL tables succeeded.'
+  failed_when:
+    - '"Creation of Bacula MySQL tables succeeded." not in tables_result.stdout'
 - debug: msg="{{ tables_result.stdout }}"
 
 - name: set the bacula Catalog password to the MySQL rooot password in the grant_mysql_privileges script
@@ -28,7 +30,7 @@
     replace: "db_password=\"{{ mysql_root_password }}\""
 
 - name: grant Bacula catalog privileges
-  shell: "MYSQL_PWD=\"{{ mysql_root_password }}\" /opt/bacula/scripts/grant_mysql_privileges -u root"
+  shell: "MYSQL_PWD=\"{{ mysql_root_password }}\" /opt/bacula/scripts/grant_mysql_privileges -u root --connect-expired-password"
   register: privileges_result
   failed_when: '"Privileges for user bacula granted on database bacula." not in privileges_result.stdout'
 - debug: msg="{{ privileges_result }}"

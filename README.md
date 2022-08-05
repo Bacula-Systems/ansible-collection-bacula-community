@@ -35,7 +35,7 @@ Before using the Bacula Community collection, it must be installed with the Ansi
 Role | Description
 -------- | ---------------------
 bce | install Bacula Community version - PostgreSQL Catalog. This role may install PostgreSQL required packages if not present in the host. This role also installs the Bacula Director (DIR), a Storage Daemon (SD), and a File Daemon (SD).
-bce_mysql | install Bacula Community version - MySQL Catalog. This role may install MySQL required packages if not present in the host. This role also installs the Bacula Director (DIR), a Storage Daemon (SD), and a File Daemon (SD).
+bce_mysql | install Bacula Community version - MySQL Catalog. This role may install MySQL required packages if not present in the host (must set install_mysql=yes). If MySQL is already installed in the host, the mysql_root_password variable must be provided. This role also installs the Bacula Director (DIR), a Storage Daemon (SD), and a File Daemon (SD).
 bce_mariadb | install Bacula Community version - MariaDB Catalog. This role may install MariaDB required packages if not present in the host. This role also installs the Bacula Director (DIR), a Storage Daemon (SD), and a File Daemon (SD).
 bce-fdonly | install Bacula File Daemon only. This is a Bacula Client.
 bce-sdonly | Install a Bacula Storage. This role follows the recommended procedure to install Bacula Community Director, Storage Daemon and File Daemon and stop/disable the Director.
@@ -64,6 +64,8 @@ client_name | the name of the File Daemon/Client. For example, `baculaclient1-fd
 storage_hostname | the FQDN of the Storage host, for example, `baculasd1.example.com`.
 storage_name | the name of the Storage. For example, `baculasd1-sd`. If not specified, the `storage_name` will be the `storage_hostname + `-sd`.
 volumes_directory | this variable will be required when using the `bce-sdonly` role. This is where the Bacula volumes will be stored. It is the value used in the SD Device resource(s) `Archive Device = xxxx` directive(s).
+install_mysql | if set to yes, the MySQL Server (either community version or packages version) will be installed. Default value is no.
+mysql_root_password | if a MySQL Server is already installed, this variable is the current MySQL root password and must be provided.
 
 ### Usage and Examples
 

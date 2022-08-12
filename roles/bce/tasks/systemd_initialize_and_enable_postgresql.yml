@@ -16,7 +16,7 @@
 
 - name: initialize PostgreSQL database
   shell: "postgresql-setup initdb"
-  when: pg_version_file.stat.exists
+  when: not pg_version_file.stat.exists
 
 - name: set the PostgreSQL database to auto-start at boot
   systemd:

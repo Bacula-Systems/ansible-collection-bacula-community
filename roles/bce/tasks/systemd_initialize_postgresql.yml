@@ -13,4 +13,4 @@
   when: result_pgdata_directory.stdout != ""
 - name: initialize PostgreSQL database
   shell: "postgresql-setup initdb"
-  when: falset result_PGDATA.stat.exists
+  when: result_PGDATA.stat.exists

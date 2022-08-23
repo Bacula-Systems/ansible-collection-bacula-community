@@ -8,8 +8,7 @@
     loop_var: repo_item
 - name: Add BCE APT repository
   apt_repository:
-    repo: "deb {{ dl_area }}/debs/{{ bce_version }}/{{ codename }}/\
-           {{ architecture }}/ {{ codename }} main"
+    repo: "deb {{ dl_area }}/debs/{{ bce_version }}/ {{ codename }} main"
     filename: "{{ repo_filename }}"
     codename: "{{ codename }}"
     state: present

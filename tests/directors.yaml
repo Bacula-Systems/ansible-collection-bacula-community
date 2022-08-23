@@ -3,4 +3,4 @@ directors:
   hosts:
     baculadir.example.com:
       director_hostname: baculadir.example.com
-      bce_version: 13.0.0
+      bce_version: 13.0.1

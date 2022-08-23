@@ -57,7 +57,7 @@ The variables in the following table must be set in a playbook, in an inventory 
 
 Variable | Description
 -------- | ---------------------
-bce_version | the Bacula Community version version, for example: `13.0.0`.
+bce_version | the Bacula Community version version, for example: `13.0.1`.
 director_hostname | the FQDN of the Director host, for example: `baculadir.example.com`. The name of the Director is, by default, the hostname + "-dir". In this example, the Director name will be `baculadir-dir`.
 client_hostname | the FQDN of the Client host, for example, `baculaclient.example.com`.
 client_name | the name of the File Daemon/Client. For example, `baculaclient1-fd`. If not specified, the `client_name` will be automatically created using the `client_hostname` + `-fd`.
@@ -71,9 +71,9 @@ mysql_root_password | if a MySQL Server is already installed, this variable is t
 
 The following examples use the playbooks in the `tests` directory of the Bacula Community collection.
 
-1) To deploy Bacula Community version (DIR, SD, and FD) `13.0.0`, using a PostgreSQL Catalog, on a host with the FQDN `baculadir.example.com` using the --extra_vars command line option, and the `bce.yml` playbook:
+1) To deploy Bacula Community version (DIR, SD, and FD) `13.0.1`, using a PostgreSQL Catalog, on a host with the FQDN `baculadir.example.com` using the --extra_vars command line option, and the `bce.yml` playbook:
 
-> ansible-playbook -i baculadir.example.com, tests/bce.yml --extra-vars "director_hostname=baculadir.example.com bce_version=13.0.0"
+> ansible-playbook -i baculadir.example.com, tests/bce.yml --extra-vars "director_hostname=baculadir.example.com bce_version=13.0.1"
 
 This is the `tests/bce.yml` file referenced in the command line above:
 ```
@@ -86,7 +86,7 @@ This is the `tests/bce.yml` file referenced in the command line above:
       name: baculasystems.bacula_community.bce
 ```
 
-2) Using an inventory file to install two remote Bacula Community version version `13.0.0` File Daemon to the hosts `client1.example.com` and `client2.example.com`, and deploy the two clients' resource definitions in the Director's configuration on the `baculadir.example.com` host, first an inventory file needs to be created:
+2) Using an inventory file to install two remote Bacula Community version version `13.0.1` File Daemon to the hosts `client1.example.com` and `client2.example.com`, and deploy the two clients' resource definitions in the Director's configuration on the `baculadir.example.com` host, first an inventory file needs to be created:
 
 Note: In this example, please be sure to edit the `tests/clients.yaml` inventory file to match your environment.
 
@@ -102,7 +102,7 @@ clients:
       client_hostname: client2.example.com
 
   vars:
-    bce_version: 13.0.0
+    bce_version: 13.0.1
     director_hostname: baculadir.example.com
 ```
 
@@ -121,7 +121,7 @@ This is the `tests/bce-fdonly.yml` playbook referenced in the command line above
       name: baculasystems.bacula_community.bce_fdonly
 ```
 
-3) To install two remote Bacula Community version version `13.0.0` Storage Daemons to the hosts `storage1.example.com` and `storage2.example.com`, using an inventory file. Bacula Community version DIR, SD, and FD compnents will be installed and the Bacula Director service will be automatically disabled. First an inventory file needs to be created:
+3) To install two remote Bacula Community version version `13.0.1` Storage Daemons to the hosts `storage1.example.com` and `storage2.example.com`, using an inventory file. Bacula Community version DIR, SD, and FD compnents will be installed and the Bacula Director service will be automatically disabled. First an inventory file needs to be created:
 
 Note: In this example, please be sure to edit the `tests/storages.yaml` inventory file to match your environment.
 
@@ -136,7 +136,7 @@ storages:
       storage_hostname: storage2.example.com
   vars:
     director_hostname: baculadir.example.com
-    bce_version: 13.0.0
+    bce_version: 13.0.1
     volumes_directory: /opt/bacula/volumes
 ```
 

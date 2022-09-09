@@ -158,6 +158,9 @@ This is the `tests/bce-sdonly.yml` playbook referenced in the command line above
 
 **Please note all the examples above can use an inventory file and/or --extra-vars or you may modify the playbooks to use any variable assignment allowed in Ansible.**
 
+## Issues
+
+You can submit a bug or review the list of open or closed bugs by going to: https://gitlab.bacula.org/bacula-community-edition/ansible-collection-bacula-community
 
 ## Licensing
 

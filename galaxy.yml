@@ -44,7 +44,7 @@ tags: [baculasystems, bacula_community, bacula]
 dependencies: {"ansible.posix": ">=1.1.1"}
 
 # The URL of the originating SCM repository
-repository: https://github.com/Bacula-Systems/ansible-collection-bacula-community
+repository: https://gitlab.bacula.org/bacula-community-edition/ansible-collection-bacula-community
 
 # The URL to any online docs
 documentation: httpis://www.bacula.org
@@ -53,7 +53,7 @@ documentation: httpis://www.bacula.org
 homepage: http://www.baculasystems.com
 
 # The URL to the collection issue tracker
-# issues: http://example.com/issue/tracker
+issues: https://gitlab.bacula.org/bacula-community-edition/ansible-collection-bacula-community/-/issues
 
 # A list of file glob-like patterns used to filter any files or directories that should not be included in the build
 # artifact. A pattern is matched from the relative path of the file or directory of the collection directory. This
